@@ -1,0 +1,6 @@
+@PantryPalAPI_HostAddress = http://localhost:5128
+
+GET {{PantryPalAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
