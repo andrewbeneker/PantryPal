@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using PantryPalAPI;
 using PantryPalAPI.Entities;
+using PantryPalAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,15 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<PantryPalDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Add configuration binding for Edamam settings
+builder.Services.Configure<EdamamSettings>(builder.Configuration.GetSection("Edamam"));
+
+// Register HttpClient for API calls
+builder.Services.AddHttpClient<IEdamamService, EdamamService>();
+
+// Register EdamamService
+builder.Services.AddScoped<IEdamamService, EdamamService>();
 
 var app = builder.Build();
 
