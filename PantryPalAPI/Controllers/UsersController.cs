@@ -88,7 +88,7 @@ namespace PantryPalAPI.Controllers
             _context.Users.Add(userRegistration);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { UserName = userRegistrationDto.Username }, userRegistrationDto);
+            return CreatedAtAction("GetUser", new { id = userRegistration.UserId }, userRegistrationDto);
         }
 
         // DELETE: api/Users/5
