@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PantryPalAPI.Entities;
 using PantryPalAPI.DTOs;
+using System.Text;
+using System.Security.Cryptography;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace PantryPalAPI.Controllers
 {
@@ -15,10 +20,14 @@ namespace PantryPalAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly PantryPalDbContext _context;
+        private readonly ILogger<UsersController> _logger;
+        private readonly IConfiguration _config;
 
-        public UsersController(PantryPalDbContext context)
+        public UsersController(PantryPalDbContext context, ILogger<UsersController> logger, IConfiguration config)
         {
             _context = context;
+            _logger = logger;
+            _config = config;
         }
 
         // GET: api/Users
@@ -75,14 +84,22 @@ namespace PantryPalAPI.Controllers
 
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<UserRegistrationDto>> PostUser(UserRegistrationDto userRegistrationDto)
+        [HttpPost("register")]
+        public async Task<ActionResult<UserRegistrationDto>> PostUser([FromBody] UserRegistrationDto userRegistrationDto)
         {
+            this._logger.LogInformation("Post called");
+            if (await _context.Users.AnyAsync(u => u.Username == userRegistrationDto.Username))
+            {
+                return BadRequest("Username already exists");
+            }
+
+            var hashedPassword = EncryptPassword(userRegistrationDto.PasswordHash);
+
             var userRegistration = new User()
             {
                 Username = userRegistrationDto.Username,
                 Email = userRegistrationDto.Email,
-                PasswordHash = userRegistrationDto.PasswordHash
+                PasswordHash = hashedPassword
             };
 
             _context.Users.Add(userRegistration);
@@ -90,6 +107,61 @@ namespace PantryPalAPI.Controllers
 
             return CreatedAtAction("GetUser", new { id = userRegistration.UserId }, userRegistrationDto);
         }
+        private byte[] EncryptPassword(string password)
+        {
+            using var sha256 = SHA256.Create();
+            var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+            return hashedBytes;
+        }
+        [HttpPost("login")]
+        public async Task<ActionResult<UserLoginDto>> AuthenticateUser([FromBody] UserLoginDto loginDto)
+        {
+            this._logger.LogInformation("Authenticate User called");
+            var hashedPassword = EncryptPassword(loginDto.Password);
+
+            var user = await _context.Users.FirstOrDefaultAsync(u=>u.Username == loginDto.Username && u.PasswordHash == hashedPassword);
+
+            if (user == null)
+            {
+                return Unauthorized("Invalid username or password");
+            }
+
+            var userDto = new UserDto
+            {
+                UserId = user.UserId,
+                Username = user.Username,
+                Email = user.Email,
+            };
+            userDto.Token = GenerateToken(userDto);
+            return Ok(userDto);
+        }
+
+        private string GenerateToken(UserDto userDto)
+        {
+            SecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var claims = new[]
+            {
+                new Claim("LoginId",userDto.Username),
+                new Claim("Email",userDto.Email)
+            };
+            var token = new JwtSecurityToken(
+                _config["Jwt:Issuer"],
+                _config["Jwt:Audience"],
+                claims,
+                expires: DateTime.Now.AddHours(1),
+                signingCredentials: credentials);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+
+        }
+
+
+
+
+
+
+
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
