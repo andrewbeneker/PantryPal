@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { PantryitemComponent } from "./pantryitem/pantryitem.component";
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RecipeSearchComponent } from './recipe-search/recipe-search.component';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, RouterOutlet, PantryitemComponent, RecipeSearchComponent],
+  imports: [CommonModule, RouterOutlet,RouterLink],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

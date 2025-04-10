@@ -12,7 +12,7 @@ import { Pantryitem } from '../models/pantryitem';
 export class PantryitemComponent implements OnInit {
 
   pantryItems: any[] = [];
-
+  selectedItem: Pantryitem | null = null;
   constructor(private pantryService: PantryitemService) {}
 
   ngOnInit(): void {
@@ -26,5 +26,16 @@ export class PantryitemComponent implements OnInit {
     this.pantryService.addPantryItem(pantryItem).subscribe(response =>{
       alert('Pantry item added!')
     })
+  }
+  editItem(item: Pantryitem): void {
+      //edit logic
+  }
+  
+  deleteItem(itemId: number): void {
+    if (confirm('Are you sure you want to delete this item?')) {
+      this.pantryService.deletePantryItem(itemId).subscribe(() => {
+        this.pantryItems = this.pantryItems.filter(item => item.itemId !== itemId);
+      });
+    }
   }
 }

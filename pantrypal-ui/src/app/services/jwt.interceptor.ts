@@ -5,11 +5,11 @@ import { catchError, throwError } from 'rxjs';
 
 export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
   var router = inject(Router);
-  var myToken = localStorage.getItem('myToken');
-  console.log('Token: ', myToken);
-  if (myToken) {
+  var token = localStorage.getItem('token');
+  console.log('Token: ', token);
+  if (token) {
     const request = req.clone({
-      headers: new HttpHeaders().set('Authorization', `Bearer ${myToken}`),
+      headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
     });
     return next(request).pipe(
       catchError((err: any) => {
@@ -18,7 +18,7 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
           if (err.status == 401) {
             console.error('Unauthorized request:', err);
             errorMessage = 'Session Expired. Please login again!';
-            localStorage.removeItem('myToken');
+            localStorage.removeItem('token');
             router.navigate(['login', { error: errorMessage }]);
           } else {
             console.error('HTTP error:', err);

@@ -1,9 +1,33 @@
-<p>test</p>
-<ul>
-    <li *ngFor="let item of pantryItems">
-        {{item.itemName}}
-        {{item.quantity}}
-        {{item.unitOfMeasure}}
-        {{item.expirationDate}}
-    </li>
-</ul>
+<div class="container mt-5">
+    <h2 class="mb-4">Your Pantry Items</h2>
+  
+    <div *ngIf="pantryItems.length === 0" class="alert alert-info">
+      You have no pantry items yet.
+    </div>
+  
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Unit</th>
+            <th>Expiration Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of pantryItems">
+            <td>{{ item.itemName }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.unitOfMeasure }}</td>
+            <td>{{ item.expirationDate | date:'shortDate' }}</td>
+            <td>
+              <button class="btn btn-sm btn-warning me-2" (click)="editItem(item)">Edit</button>
+              <button class="btn btn-sm btn-danger" (click)="deleteItem(item.itemId)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

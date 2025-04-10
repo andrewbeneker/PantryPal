@@ -142,6 +142,7 @@ namespace PantryPalAPI.Controllers
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new[]
             {
+                new Claim("UserId", userDto.UserId.ToString()),
                 new Claim("LoginId",userDto.Username),
                 new Claim("Email",userDto.Email)
             };
