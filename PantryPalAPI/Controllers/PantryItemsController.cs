@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PantryPalAPI.Entities;
 using PantryPalAPI.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PantryPalAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PantryItemsController : ControllerBase
@@ -25,7 +27,18 @@ namespace PantryPalAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PantryItem>>> GetPantryItems()
         {
-            return await _context.PantryItems.ToListAsync();
+            var userIdClaim = User.FindFirst("UserId")?.Value;
+            if (string.IsNullOrEmpty(userIdClaim))
+            {
+                return Unauthorized("UserId claim is missing in token");
+            }
+            int userId = int.Parse(userIdClaim);
+            var userPantryItems = 
+                                await _context.PantryItems
+                                .Where(item => item.UserId == userId)
+                                .ToListAsync();
+
+            return Ok(userPantryItems);
         }
 
         // GET: api/PantryItems/5
@@ -69,6 +82,13 @@ namespace PantryPalAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<PantryItemRetrieveOrCreateDto>> PostPantryItem(PantryItemRetrieveOrCreateDto pantryItem)
         {
+            var userIdClaim = User.FindFirst("UserId")?.Value;
+            if (string.IsNullOrEmpty(userIdClaim))
+            {
+                return Unauthorized("UserId claim is missing in token");
+            }
+            int userId = int.Parse(userIdClaim);
+
 
             var addPantryItem = new PantryItem()
             {
@@ -76,7 +96,7 @@ namespace PantryPalAPI.Controllers
                 Quantity = pantryItem.Quantity,
                 UnitOfMeasure = pantryItem.UnitOfMeasure,
                 ExpirationDate = pantryItem.ExpirationDate,
-                UserId = pantryItem.UserId
+                UserId = userId
             };
 
             _context.PantryItems.Add(addPantryItem);
@@ -89,8 +109,15 @@ namespace PantryPalAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePantryItem(int id)
         {
+            var userIdClaim = User.FindFirst("UserId")?.Value;
+            if (string.IsNullOrEmpty(userIdClaim))
+            {
+                return Unauthorized("UserId claim is missing in token");
+            }
+            int userId = int.Parse(userIdClaim);
+
             var pantryItem = await _context.PantryItems.FindAsync(id);
-            if (pantryItem == null)
+            if (pantryItem == null || pantryItem.UserId != userId)
             {
                 return NotFound();
             }

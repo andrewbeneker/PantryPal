@@ -6,7 +6,9 @@ export const authGuard: CanActivateFn = (route, state) => {
   var router = inject(Router);
 
   //Check the token, it is used to protect eoute against unauthorized access
-  var token = localStorage.getItem('myToken');
+  var token = localStorage.getItem('token');
+  console.log('Token in AuthGuard:', token);
+
   if (token && token != '') {
     return true;
   }
