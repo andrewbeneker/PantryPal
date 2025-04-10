@@ -19,6 +19,11 @@ export class PantryitemService {
   addPantryItem(pantryItem: Pantryitem){
     return this.http.post(`${this.pantryItemUrl}`, pantryItem)
   }
+
+  updatePantryItem(itemId: number, item: Pantryitem){
+    return this.http.put(`${this.pantryItemUrl}/${itemId}`, item);
+  }
+
   deletePantryItem(pantryId: number){
     return this.http.delete(`${this.pantryItemUrl}/${pantryId}`)
   }
