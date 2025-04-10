@@ -1,0 +1,76 @@
+
+
+.flash-red {
+    animation: pulseRed 3s ease-in-out infinite;
+    transform-origin: center;
+  }
+  
+  @keyframes pulseRed {
+    0% {
+      box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.75);
+      transform: scale(1);
+    }
+    70% {
+      box-shadow: 0 0 10px 5px rgba(220, 53, 69, 0.5);
+      transform: scale(1.1);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+      transform: scale(1);
+    }
+  }
+  
+  
+  /* 🟡 Pulse animation for items expiring soon */
+  .pulse-yellow {
+    animation: pulseYellow 2s infinite;
+  }
+  
+  @keyframes pulseYellow {
+    0% {
+      box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.6); /* Bootstrap warning yellow */
+    }
+    70% {
+      box-shadow: 0 0 0 15px rgba(255, 193, 7, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(255, 193, 7, 0);
+    }
+  }
+
+/*
+.flash-red {
+    animation: pulseRed 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes pulseRed {
+    0% {
+      box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.75);
+    }
+    70% {
+      box-shadow: 0 0 12px 6px rgba(220, 53, 69, 0.5);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+    }
+  }
+    */
+
+    .add-pantry-btn {
+        background-color: #007bff; 
+        color: #FFF;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        font-family: 'Fredoka', sans-serif;
+        border-radius: 50px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+      
+      .add-pantry-btn:hover {
+        background-color: #e14c44;
+        transform: scale(1.03);
+        cursor: pointer;
+      }

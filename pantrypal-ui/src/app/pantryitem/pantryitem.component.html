@@ -1,14 +1,14 @@
 <div class="container mt-5">
-  <h2 class="mb-4">Your Pantry Items</h2>
+  <h2 class="fun-header text-center mb-4">Your Pantry Items</h2>
 
   <div *ngIf="pantryItems.length === 0" class="alert alert-info">
     You have no pantry items yet.
-    <button class="btn btn-success mb-3" (click)="openAddModal()">+ Add Pantry Item</button>
+    <button class="btn add-pantry-btn" (click)="openAddModal()">+ Add Pantry Item</button>
   </div>
 
   <div class="table-responsive">
-    <div *ngIf="pantryItems.length>0">
-      <button class="btn btn-success mb-3" (click)="openAddModal()">+ Add Pantry Item</button>
+    <div class="text-center">
+      <button class="btn add-pantry-btn mb-3" (click)="openAddModal()">🍎 + Add Pantry Item</button>
     </div>
     <table class="table table-striped table-bordered align-middle">
       <thead class="table-dark">
@@ -21,8 +21,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of pantryItems"
-          [ngClass]="{
+        <tr *ngFor="let item of pantryItems" [ngClass]="{
             'table-danger': isExpired(item.expirationDate),
             'table-warning': isExpiringSoon(item.expirationDate),
             'table-success': !isExpired(item.expirationDate) && !isExpiringSoon(item.expirationDate)
@@ -32,10 +31,11 @@
           <td>{{ item.unitOfMeasure }}</td>
           <td>
             {{ item.expirationDate | date:'shortDate' }}<br>
-            <span *ngIf="getExpirationBadge(item.expirationDate) as badge"
-                  class="badge mt-1" 
-                  [ngClass]="badge.class">
-              {{ badge.emoji }} {{ badge.text }}
+            <span *ngIf="getExpirationBadge(item.expirationDate) as badge" class="badge rounded-pill px-3 py-2 mt-1"
+              [ngClass]="[badge.class, badge.class.includes('danger') ? 'flash-red' : '', badge.class.includes('warning') ? 'pulse-yellow' : '']">
+              <small class="d-block fst-italic fw-semibold text-muted mt-1">
+                {{ badge.emoji }} <span class="text-light">{{ badge.text }}</span>
+              </small>
             </span>
           </td>
           <!--<td>
@@ -106,7 +106,8 @@
     </div>
   </div>
   <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1055">
-    <div [id]="'toastMessage'" [ngClass]="toastClass" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div [id]="'toastMessage'" [ngClass]="toastClass" class="toast" role="alert" aria-live="assertive"
+      aria-atomic="true">
       <div class="d-flex">
         <div class="toast-body">
           {{ toastMessage }}

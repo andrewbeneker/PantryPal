@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(120deg, #fff1eb, #ace0f9); 
+
+}
+
+/*
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Quicksand:wght@400;600&display=swap');
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+  line-height: 1.6;
+  background-color: #fffef9;
+  color: #333;
+  background: linear-gradient(120deg, #fff1eb, #ace0f9);
+}
+
+h1, h2, h3, .fun-header {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  color: #f25c54;
+  text-shadow: 1px 1px 0 #fbd1a2;
+  letter-spacing: 1px;
+}
+*/
