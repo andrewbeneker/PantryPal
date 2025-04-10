@@ -15,7 +15,7 @@ public partial class PantryItem
 
     public string UnitOfMeasure { get; set; } = null!;
 
-    public DateTime ExpirationDate { get; set; }
+    public DateOnly ExpirationDate { get; set; }
 
     public virtual User User { get; set; } = null!;
 }

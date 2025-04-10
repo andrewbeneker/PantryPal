@@ -13,5 +13,7 @@ public partial class Favorite
 
     public string? RecipeUrl { get; set; }
 
+    public string? RecipeImage { get; set; }
+
     public virtual User User { get; set; } = null!;
 }
