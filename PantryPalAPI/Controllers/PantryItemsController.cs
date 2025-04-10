@@ -102,7 +102,7 @@ namespace PantryPalAPI.Controllers
             _context.PantryItems.Add(addPantryItem);
             await _context.SaveChangesAsync();
 
-            return Ok($"Pantry Item: {pantryItem.ItemName} added successfully");
+            return Ok(new {message = $"Pantry Item: {pantryItem.ItemName} added successfully"});
         }
 
         // DELETE: api/PantryItems/5
