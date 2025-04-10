@@ -21,11 +21,28 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of pantryItems">
+        <tr *ngFor="let item of pantryItems"
+          [ngClass]="{
+            'table-danger': isExpired(item.expirationDate),
+            'table-warning': isExpiringSoon(item.expirationDate),
+            'table-success': !isExpired(item.expirationDate) && !isExpiringSoon(item.expirationDate)
+          }">
           <td>{{ item.itemName }}</td>
           <td>{{ item.quantity }}</td>
           <td>{{ item.unitOfMeasure }}</td>
-          <td>{{ item.expirationDate | date:'shortDate' }}</td>
+          <td>
+            {{ item.expirationDate | date:'shortDate' }}<br>
+            <span *ngIf="getExpirationBadge(item.expirationDate) as badge"
+                  class="badge mt-1" 
+                  [ngClass]="badge.class">
+              {{ badge.emoji }} {{ badge.text }}
+            </span>
+          </td>
+          <!--<td>
+            {{ item.expirationDate | date:'shortDate' }}<br>
+            <small class="text-muted">{{ daysUntilExpiration(item.expirationDate) }}</small>
+          </td>
+        -->
           <td>
             <button class="btn btn-sm btn-warning me-2" (click)="editItem(item)">Edit</button>
             <button class="btn btn-sm btn-danger" (click)="deleteItem(item.itemId)">Delete</button>
