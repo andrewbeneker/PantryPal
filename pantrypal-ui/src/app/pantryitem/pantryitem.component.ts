@@ -36,7 +36,9 @@ export class PantryitemComponent implements OnInit {
   loadItems(): void {
     this.pantryService.getPantryItems().subscribe(
       data => {
-        this.pantryItems = data as any[];
+        this.pantryItems = (data as any[]).sort((a,b) => {
+          return new Date(a.expirationDate).getTime() - new Date(b.expirationDate).getTime();
+        });
       }
     );
   }
@@ -131,7 +133,7 @@ export class PantryitemComponent implements OnInit {
   
     const target = new Date(date);
     const diffDays = (target.getTime() - today.getTime()) / (1000 * 60 * 60 * 24);
-    return diffDays <= 3 && diffDays > 0;
+    return diffDays <= 3 && diffDays >= 0;
   }
 
   daysUntilExpiration(date: Date | string): string {
@@ -165,7 +167,7 @@ export class PantryitemComponent implements OnInit {
       } else if (diffDays === 0) {
         return { emoji: '🔴', class: 'bg-danger', text: 'Expires today' };
       } else if (diffDays === 1) {
-        return { emoji: '🟡', class: 'bg-warning text-dark', text: 'Expires tomorrow' };
+        return { emoji: '🟠', class: 'bg-warning text-dark', text: 'Expires tomorrow' };
       } else if (diffDays <= 3) {
         return { emoji: '🟡', class: 'bg-warning text-dark', text: `Expires in ${diffDays} days` };
       } else {
