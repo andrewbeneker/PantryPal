@@ -1,0 +1,11 @@
+<ul>
+
+<li *ngFor="let favorite of favorites">
+    <img [src]="favorite.recipeImage" [alt]="favorite.recipelabel" />
+    <br>
+    {{favorite.recipeName}}
+    <br>
+    <a href>{{favorite.recipeUrl}}</a>
+</li>
+
+</ul>

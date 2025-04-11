@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Pantryitem } from '../models/pantryitem';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PantryitemService {
 
-  private pantryItemUrl = 'https://localhost:7286/api/PantryItems'
+  private pantryItemUrl = `${environment.apiUrl}/PantryItems`;
   constructor(private http: HttpClient) { }
 
   getPantryItems(){

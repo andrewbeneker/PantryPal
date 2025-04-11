@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PantryPalAPI.Entities;
+using PantryPalAPI.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PantryPalAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FavoritesController : ControllerBase
@@ -22,9 +25,21 @@ namespace PantryPalAPI.Controllers
 
         // GET: api/Favorites
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Favorite>>> GetFavorites()
+        public async Task<ActionResult<IEnumerable<GetAndDeleteFavoriteDto>>> GetFavorites()
         {
-            return await _context.Favorites.ToListAsync();
+            var userIdClaim = User.FindFirst("UserId")?.Value;
+            if (string.IsNullOrEmpty(userIdClaim))
+            {
+                return Unauthorized("UserId claim is missing in token");
+            }
+            int userId = int.Parse(userIdClaim);
+
+            var userFavorites =
+                                await _context.Favorites
+                                .Where(item => item.UserId == userId)
+                                .ToListAsync();
+
+            return Ok(userFavorites);
         }
 
         // GET: api/Favorites/5
@@ -75,27 +90,43 @@ namespace PantryPalAPI.Controllers
         // POST: api/Favorites
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Favorite>> PostFavorite(Favorite favorite)
+        public async Task<ActionResult<AddFavoriteDto>> PostFavorite(AddFavoriteDto favorite)
         {
+
+            var userIdClaim = User.FindFirst("UserId")?.Value;
+            if (string.IsNullOrEmpty(userIdClaim))
+            {
+                return Unauthorized("UserId claim is missing in token");
+            }
+            int userId = int.Parse(userIdClaim);
 
             var newFavorite = new Favorite()
             {
+                UserId = userId,
                 RecipeName = favorite.RecipeName,
-                RecipeUrl = favorite.RecipeUrl
+                RecipeUrl = favorite.RecipeUrl,
+                RecipeImage = favorite.RecipeImage
             };
 
             _context.Favorites.Add(newFavorite);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFavorite", new { id = favorite.FavoriteId }, favorite);
+            return Ok(new { message = $"Favorite: {favorite.RecipeName} added successfully" });
         }
 
         // DELETE: api/Favorites/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFavorite(int id)
         {
+            var userIdClaim = User.FindFirst("UserId")?.Value;
+            if (string.IsNullOrEmpty(userIdClaim))
+            {
+                return Unauthorized("UserId claim is missing in token");
+            }
+            int userId = int.Parse(userIdClaim);
+
             var favorite = await _context.Favorites.FindAsync(id);
-            if (favorite == null)
+            if (favorite == null || favorite.UserId != userId)
             {
                 return NotFound();
             }

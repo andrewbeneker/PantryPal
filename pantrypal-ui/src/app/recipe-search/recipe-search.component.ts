@@ -3,6 +3,9 @@ import { RecipesService } from '../services/recipes.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Recipe } from '../models/recipe';
+import { Favorite } from '../models/favorite';
+import { FavoriteService } from '../services/favorite.service';
+import { FavoritesComponent } from '../favorites/favorites.component';
 
 @Component({
   selector: 'app-recipe-search',
@@ -13,8 +16,9 @@ import { Recipe } from '../models/recipe';
 export class RecipeSearchComponent {
   query: string = '';
   recipes: Recipe[] = [];
+  
 
-  constructor(private recipeService: RecipesService){}
+  constructor(private recipeService: RecipesService, private favoriteService: FavoriteService){}
 
   search() {
     if (this.query.trim()) {
@@ -26,5 +30,16 @@ export class RecipeSearchComponent {
         }));
       });
     }
+  }
+
+  createFavorite(recipe: Recipe){
+
+   const favoriteRecipe: Favorite = {
+      recipeName: recipe.label,
+      recipeUrl: recipe.url,
+      recipeImage: recipe.image
+    }
+
+    this.favoriteService.createFavorite(favoriteRecipe).subscribe(data => {})
   }
 }
