@@ -1,6 +1,37 @@
-<div class="container mt-5">
-    <h2>Welcome to Your Dashboard!</h2>
-    <p>You are now logged in ✅</p>
-  
-    <button (click)="logout()" class="btn btn-danger">Logout</button>
+<div class="dashboard-wrapper">
+  <div class="dashboard-container">
+    <div class="greeting-section">
+      <h1>Welcome, User! 👋</h1>
+      <h3>Ready to cook up something delicious today?</h3>
+      <p>Today's Date: {{ today | date:'fullDate' }}</p>
+    </div>
+
+    <div class="pantry-summary">
+      <h5>Pantry Summary</h5>
+      <ul>
+        <li>Total Pantry Items: {{ pantryItemCount }}</li>
+      </ul>
+
+      <h5>Expiring Soon ⚠️</h5>
+      <ul *ngIf="expiringSoonItems.length > 0; else noExpiring">
+        <li *ngFor="let item of expiringSoonItems">
+          {{ item.itemName }}:
+          {{ item.expirationDate | date: 'mediumDate' }}
+          ({{ daysUntilExpiration(item.expirationDate) }})
+        </li>
+      </ul>
+      <ng-template #noExpiring>
+        <p>No items expiring within the next 3 days!</p>
+      </ng-template>
+    </div>
+
+    <div class="challenges-box">
+      <h3>Empty the Pantry Challenge Stats:</h3>
+      <!-- Challenge stats stuff here -->
+    </div>
+
+    <div class="quick-actions">
+      <button class="btn btn-danger ms-auto" (click)="logout()">Logout</button>
+    </div>
   </div>
+</div>
