@@ -1,11 +1,16 @@
-<ul>
-
-<li *ngFor="let favorite of favorites">
-    <img [src]="favorite.recipeImage" [alt]="favorite.recipelabel" />
-    <br>
-    {{favorite.recipeName}}
-    <br>
-    <a href>{{favorite.recipeUrl}}</a>
-</li>
-
-</ul>
+<div class="favorites-list">
+    <ul>
+        <li *ngFor="let favorite of favorites" class="favorite-item">
+            <div class="favorite-card">
+                <img [src]="favorite.recipeImage" [alt]="favorite.recipeName" class="favorite-img" />
+                <div class="favorite-details">
+                    <h3>{{ favorite.recipeName }}</h3>
+                    <a [href]="favorite.recipeUrl" target="_blank" class="view-recipe-link">View Recipe</a>
+                </div>
+                <button *ngIf="favorite.favoriteId" class="btn btn-danger ms-2"
+                    (click)="deleteFavorite(favorite.favoriteId)">Remove from Favorites</button>
+                <!-- use of *ngIf due to favoriteId being an optional property - button only displayed if favoriteId exists -->
+            </div>
+        </li>
+    </ul>
+</div>

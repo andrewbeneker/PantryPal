@@ -6,7 +6,7 @@ import { Favorite } from '../models/favorite';
 
 @Component({
   selector: 'app-favorites',
-  imports: [CommonModule, RouterLink, RouterModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './favorites.component.html',
   styleUrl: './favorites.component.css'
 })
@@ -14,7 +14,7 @@ export class FavoritesComponent implements OnInit {
 
 constructor(private favoriteService: FavoriteService){}
  
-favorites: any[] = [];
+favorites: Favorite [] = []; // changed from array of type any to array of type favorite to enable type-checking
 
 ngOnInit(){
   this.loadFavorites();
@@ -22,6 +22,7 @@ ngOnInit(){
 
 loadFavorites(): void {
   this.favoriteService.getFavorites().subscribe(data => {
+    console.log('Favorites from API:', data);
     this.favorites = data as any[];
   })
 }
@@ -29,10 +30,8 @@ loadFavorites(): void {
 deleteFavorite(favoriteId: number): void {
   if (confirm('Are you sure you want to delete this item?')) {
     this.favoriteService.deleteFavorite(favoriteId).subscribe(() => {
-      this.favorites = this.favorites.filter(item => item.itemId !== favoriteId);
+      this.favorites = this.favorites.filter(item => item.favoriteId !== favoriteId);
       this.loadFavorites();
     });
   }
-}
-
-}
+}}

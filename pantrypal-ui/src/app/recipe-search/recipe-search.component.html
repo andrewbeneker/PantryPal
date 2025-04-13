@@ -1,14 +1,25 @@
+<form class="search-container" (ngSubmit)="search()">
+  <input [(ngModel)]="query" name="query" placeholder="Search for a recipe..." />
+  <button type="submit">Search</button>
+</form>
+<!-- wrapped search bar in a form with ngSubmit to make entire form respond to a submit event -->
 
-<div class="search-container">
-    <input [(ngModel)]="query" placeholder="Search for a recipe..." />
-    <button (click)="search()">Search</button>
-  </div>
-  
-  <div class="recipe-list" *ngIf="recipes.length">
-    <div *ngFor="let recipe of recipes" class="recipe-card">
-      <img [src]="recipe.image" [alt]="recipe.label" />
-      <h3>{{ recipe.label }}</h3>
-      <a [href]="recipe.url" target="_blank">View Recipe</a>
-      <button class="btn btn-success ms-2" (click)="createFavorite(recipe)">❤️ Add to Favorites</button>
+<div class="recipe-list" *ngIf="recipes.length">
+  <div *ngFor="let recipe of recipes" class="recipe-card">
+    <img [src]="recipe.image" [alt]="recipe.label" />
+    <h3>{{ recipe.label }}</h3>
+    <a [href]="recipe.url" target="_blank">View Recipe</a>
+    <!-- checking if recipe is already added as a favorite prior to rendering Add to Favorites button -->
+    <div *ngIf="!isFavorite(recipe); else alreadyFavorited">
+      <button class="btn btn-success ms-2" (click)="createFavorite(recipe)">
+        ❤️ Add to Favorites
+      </button>
     </div>
+
+    <ng-template #alreadyFavorited>
+      <p class="text-success fw-bold">In Favorites ✅</p>
+    </ng-template>
+
+
   </div>
+</div>

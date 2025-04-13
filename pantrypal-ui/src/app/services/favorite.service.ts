@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Favorite } from '../models/favorite';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +13,16 @@ export class FavoriteService {
 
   constructor(private http: HttpClient) { }
 
-  getFavorites() {
-    return this.http.get(`${this.favoriteUrl}`)
+  // Specify return an observable favorite rather than observable any to enable type checking - prior to was causing an issue due to favorite model having favoriteId as an optional property
+  getFavorites(): Observable<Favorite[]> {
+    return this.http.get<Favorite[]>(`${this.favoriteUrl}`);
   }
 
   createFavorite(favorite: Favorite) {
-    return this.http.post(`${this.favoriteUrl}`, favorite)
+    return this.http.post(`${this.favoriteUrl}`, favorite);
   }
 
-  deleteFavorite(favoriteId: number){
-    return this.http.delete(`${this.favoriteUrl}/${favoriteId}`)
+  deleteFavorite(favoriteId: number) {
+    return this.http.delete(`${this.favoriteUrl}/${favoriteId}`);
   }
-
-
 }

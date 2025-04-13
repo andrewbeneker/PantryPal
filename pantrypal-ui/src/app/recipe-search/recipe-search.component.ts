@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RecipesService } from '../services/recipes.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -9,16 +9,20 @@ import { FavoritesComponent } from '../favorites/favorites.component';
 
 @Component({
   selector: 'app-recipe-search',
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './recipe-search.component.html',
   styleUrl: './recipe-search.component.css'
 })
-export class RecipeSearchComponent {
+export class RecipeSearchComponent implements OnInit {
   query: string = '';
   recipes: Recipe[] = [];
-  
+  favorites: Favorite[] = [];
 
-  constructor(private recipeService: RecipesService, private favoriteService: FavoriteService){}
+  constructor(private recipeService: RecipesService, private favoriteService: FavoriteService) { }
+
+  ngOnInit(): void {
+    this.loadFavorites();
+  }
 
   search() {
     if (this.query.trim()) {
@@ -32,14 +36,27 @@ export class RecipeSearchComponent {
     }
   }
 
-  createFavorite(recipe: Recipe){
+  createFavorite(recipe: Recipe) {
 
-   const favoriteRecipe: Favorite = {
+    const favoriteRecipe: Favorite = {
       recipeName: recipe.label,
       recipeUrl: recipe.url,
       recipeImage: recipe.image
     }
 
-    this.favoriteService.createFavorite(favoriteRecipe).subscribe(data => {})
+    this.favoriteService.createFavorite(favoriteRecipe).subscribe(data => { 
+      alert('Favorite recipe added!')
+      this.loadFavorites(); // refreshes current favorites after creating a new favorite
+    });
+  }
+
+  loadFavorites(): void {
+    this.favoriteService.getFavorites().subscribe(data => {
+      this.favorites = data;
+    });
+  }
+
+  isFavorite(recipe: Recipe): boolean {
+    return this.favorites.some(fav => fav.recipeUrl === recipe.url);
   }
 }

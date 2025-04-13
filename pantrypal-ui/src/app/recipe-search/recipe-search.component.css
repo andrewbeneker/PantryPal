@@ -37,3 +37,19 @@
     height: auto;
     border-radius: 5px;
   }
+  .recipe-card h3{
+    font-size: 1.5rem;
+  }
+
+  .recipe-card a {
+    display: inline-block;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: #4CAF50;
+    font-weight: bold;
+  }
+  
+  .recipe-card a:hover {
+    text-decoration: underline;
+    transform: scale(1.1);
+  }

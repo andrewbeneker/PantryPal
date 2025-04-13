@@ -1,0 +1,95 @@
+.dashboard-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  .dashboard-container {
+    background-color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .greeting-section {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .greeting-section h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
+
+  .greeting-section h3{
+    margin-bottom: 20px;
+  }
+  
+  .greeting-section p {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+  }
+  
+  .pantry-summary {
+    margin-bottom: 30px;
+  }
+  
+  .pantry-summary h5 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .pantry-summary ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .pantry-summary li {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+  }
+  
+  .challenges-box h3 {
+    font-size: 1.5em;
+    margin-bottom: 100px;
+    font-weight: bold;
+  }
+  
+  .quick-actions .btn {
+    width: 120px;
+    padding: 10px;
+    background-color: #f44336;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .quick-actions .btn:hover {
+    background-color: #d32f2f;
+  }
+
+  .pantry-summary ul li {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+  
