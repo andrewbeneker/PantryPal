@@ -143,7 +143,7 @@ namespace PantryPalAPI.Controllers
             var claims = new[]
             {
                 new Claim("UserId", userDto.UserId.ToString()),
-                new Claim("LoginId",userDto.Username),
+                new Claim("username",userDto.Username),
                 new Claim("Email",userDto.Email)
             };
             var token = new JwtSecurityToken(

@@ -42,6 +42,18 @@ export class UserService {
     return !!this.getToken();
   }
 
+  getUsername(): string | null {
+    const token = this.getToken();
+    if (!token) return null;
+  
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.username || null; // 👈 match casing exactly
+    } catch (err) {
+      console.error('Error decoding token', err);
+      return null;
+    }
+  }
 
 
 

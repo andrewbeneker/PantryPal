@@ -29,17 +29,35 @@ export class RegisterComponent {
     if (this.registerForm.valid) {
       const formData = this.registerForm.value;
   
-      // Map "password" to "passwordHash"
       const userPayload = {
         username: formData.username,
         email: formData.email,
-        passwordHash: formData.password // match the backend DTO
+        passwordHash: formData.password
       };
   
       this.userService.register(userPayload).subscribe({
         next: () => {
-          this.successMessage = 'Registration successful! You can now log in.';
+          this.successMessage = 'Registration successful! Redirecting...';
           this.registerForm.reset();
+          // Auto-login after successful registration
+          const loginPayload = {
+            username: userPayload.username,
+            password: formData.password
+          };
+  
+          this.userService.login(loginPayload).subscribe({
+            next: (response) => {
+              localStorage.setItem('token', response.token);
+              // Navigate to dashboard after short delay
+              setTimeout(() => {
+                this.router.navigate(['/dashboard']);
+              }, 1000);
+            },
+            error: (err) => {
+              this.errorMessage = 'Auto-login failed. Please log in manually.';
+              console.error(err);
+            }
+          });
         },
         error: (err) => {
           this.errorMessage = 'Registration failed. Username may already exist.';
@@ -47,4 +65,5 @@ export class RegisterComponent {
         }
       });
     }
-  }}
+  }
+}

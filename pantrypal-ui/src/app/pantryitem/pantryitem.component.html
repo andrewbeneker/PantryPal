@@ -21,16 +21,16 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of pantryItems" [ngClass]="{
-            'table-danger': isExpired(item.expirationDate),
-            'table-warning': isExpiringSoon(item.expirationDate),
-            'table-success': !isExpired(item.expirationDate) && !isExpiringSoon(item.expirationDate)
+            'table-danger': isItemExpired(item.expirationDate),
+            'table-warning': isItemExpiringSoon(item.expirationDate),
+            'table-success': !isItemExpired(item.expirationDate) && !isItemExpiringSoon(item.expirationDate)
           }">
           <td>{{ item.itemName }}</td>
           <td>{{ item.quantity }}</td>
           <td>{{ item.unitOfMeasure }}</td>
           <td>
             {{ item.expirationDate | date:'shortDate' }}<br>
-            <span *ngIf="getExpirationBadge(item.expirationDate) as badge" class="badge rounded-pill px-3 py-2 mt-1"
+            <span *ngIf="getItemBadge(item.expirationDate) as badge" class="badge rounded-pill px-3 py-2 mt-1"
               [ngClass]="[badge.class, badge.class.includes('danger') ? 'flash-red' : '', badge.class.includes('warning') ? 'pulse-yellow' : '']">
               <small class="d-block fst-italic fw-semibold text-muted mt-1">
                 {{ badge.emoji }} <span class="text-light">{{ badge.text }}</span>
