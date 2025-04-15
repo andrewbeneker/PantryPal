@@ -33,7 +33,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", policy =>
     {
-        policy.WithOrigins("http://localhost:4200") // or your deployed frontend URL
+        policy.WithOrigins("https://pantrypal-ui-ajhgbqewhmcxb5ch.centralus-01.azurewebsites.net") // or your deployed frontend URL
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
@@ -61,11 +61,10 @@ var app = builder.Build();
 app.UseCors("CorsPolicy");
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseHttpsRedirection();
 

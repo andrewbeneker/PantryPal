@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    apiUrl: 'https://localhost:7286/api' // 👈 for local dev
+    apiUrl: 'https://pantrypalapi.azurewebsites.net/api' // 👈 for local dev
   };

@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/579303e6-6828-47a8-8c64-e3a142c769dd/resourceGroups/PantryPal-ui_group/providers/Microsoft.Web/sites/PantryPal-ui",
+    "appService.deploySubpath": "dist\\pantrypal-ui\\browser"
+}
