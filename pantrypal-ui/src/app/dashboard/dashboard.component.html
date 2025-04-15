@@ -1,7 +1,7 @@
 <div class="dashboard-wrapper">
   <div class="dashboard-container">
     <div class="greeting-section">
-      <h1>Welcome, User! 👋</h1>
+      <h1>Welcome, {{username}}! 👋</h1>
       <h3>Ready to cook up something delicious today?</h3>
       <p>Today's Date: {{ today | date:'fullDate' }}</p>
     </div>
@@ -16,8 +16,18 @@
       <ul *ngIf="expiringSoonItems.length > 0; else noExpiring">
         <li *ngFor="let item of expiringSoonItems">
           {{ item.itemName }}:
-          {{ item.expirationDate | date: 'mediumDate' }}
-          ({{ daysUntilExpiration(item.expirationDate) }})
+          <span class="badgeDisplay">
+            <span *ngIf="getItemBadge(item.expirationDate) as badge" class="badge rounded-pill px-3 py-2 me-2"
+            [ngClass]="[
+              badge.class, badge.class.includes('danger') ? 'flash-red' : '',
+              badge.class.includes('warning') ? 'pulse-yellow' : '']">
+  
+            <small class="d-block fst-italic fw-semibold text-muted mt-1">
+              {{ badge.emoji }} <span class="text-light">{{ badge.text }}</span>
+            </small>
+          </span>
+          </span>
+
         </li>
       </ul>
       <ng-template #noExpiring>
@@ -28,10 +38,6 @@
     <div class="challenges-box">
       <h3>Empty the Pantry Challenge Stats:</h3>
       <!-- Challenge stats stuff here -->
-    </div>
-
-    <div class="quick-actions">
-      <button class="btn btn-danger ms-auto" (click)="logout()">Logout</button>
     </div>
   </div>
 </div>
