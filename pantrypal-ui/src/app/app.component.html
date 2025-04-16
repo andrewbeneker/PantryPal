@@ -1,3 +1,4 @@
+
 <nav *ngIf="showNavbar && isLoggedIn" class="navbar navbar-expand-lg navbar-dark bg-dark px-3 custom-navbar">
   <div class="container-fluid justify-content-between">
     <div class="mx-auto text-center navbar-brand-center">
@@ -16,12 +17,19 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/dashboard">Dashboard</a>
       </li>
+      <li *ngIf="!isProduction" class="nav-item d-flex align-items-center me-2">
+        <span 
+          class="badge rounded-pill px-3 py-1 bg-warning text-dark"
+          style="font-size: 0.75rem;"
+        >
+          {{ environmentName }}
+        </span>
+      </li>
       <li class="nav-item d-flex align-items-center ms-3">
         <button class="btn btn-outline-light btn-sm rounded-pill px-3" (click)="logout()"> Logout</button>
       </li>
     </ul>
   </div>
 </nav>
-  
   
   <router-outlet></router-outlet>
