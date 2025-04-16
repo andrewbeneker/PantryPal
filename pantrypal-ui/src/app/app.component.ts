@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { UserService } from './services/user.service';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,8 @@ import { UserService } from './services/user.service';
 export class AppComponent {
   title = 'pantrypal-ui';
   showNavbar: boolean = true;
+  environmentName = environment.envName;
+  isProduction = environment.production;
 
   constructor(private router: Router, public userService: UserService) {
     // Hide navbar on login/register pages
@@ -19,6 +22,7 @@ export class AppComponent {
       if (event instanceof NavigationEnd) {
         const hiddenRoutes = ['/login', '/register'];
         this.showNavbar = !hiddenRoutes.includes(event.url);
+        
       }
     });
   }

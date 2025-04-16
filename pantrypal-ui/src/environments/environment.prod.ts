@@ -1,4 +1,5 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://your-azure-api-url/api'
+    apiUrl: 'https://pantrypalapi.azurewebsites.net/api',// 👈 for deployment
+    envName: 'Production' 
   };

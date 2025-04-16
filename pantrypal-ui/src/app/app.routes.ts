@@ -6,12 +6,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RecipeSearchComponent } from './recipe-search/recipe-search.component';
 import { PantryitemComponent } from './pantryitem/pantryitem.component';
 import { FavoritesComponent } from './favorites/favorites.component';
+import { noAuthGuard } from '../no-auth.guard';
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'login', component: LoginComponent },
+    { path: 'login', component: LoginComponent, canActivate: [noAuthGuard] },
     { path: 'pantry', component: PantryitemComponent, canActivate: [authGuard] },
     { path: 'recipes/search', component: RecipeSearchComponent },
-    { path: 'register', component: RegisterComponent },
+    { path: 'register', component: RegisterComponent, canActivate: [noAuthGuard] },
     { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
     {path: 'favorites', component: FavoritesComponent, canActivate: [authGuard]},
     { path: '**', redirectTo: 'login' }, // fallback
