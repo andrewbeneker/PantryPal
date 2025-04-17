@@ -44,13 +44,12 @@ export class PantryitemComponent implements OnInit {
   }
 
   loadItems(): void {
-    this.pantryService.getPantryItems().subscribe(
-      data => {
-        this.pantryItems = (data as any[]).sort((a, b) => {
-          return new Date(a.expirationDate).getTime() - new Date(b.expirationDate).getTime();
-        });
-      }
-    );
+    this.pantryService.getPantryItems().subscribe(data => {
+      this.pantryItems = (data as any[]).sort((a, b) => {
+        return new Date(a.expirationDate).getTime() - new Date(b.expirationDate).getTime();
+      });
+      localStorage.setItem('pantryItems', JSON.stringify(this.pantryItems));
+    });
   }
 
   get filteredPantryItems(): any[] {

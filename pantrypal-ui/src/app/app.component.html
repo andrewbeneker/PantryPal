@@ -12,24 +12,33 @@
         <a class="nav-link" routerLink="/recipes/search">Recipe Search</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" routerLink="/recommended" class="nav-link">Recommended Recipes</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" routerLink="/favorites">Favorites</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/dashboard">Dashboard</a>
       </li>
-      <li *ngIf="!isProduction" class="nav-item d-flex align-items-center me-2">
-        <span 
-          class="badge rounded-pill px-3 py-1 bg-warning text-dark"
-          style="font-size: 0.75rem;"
-        >
-          {{ environmentName }}
-        </span>
-      </li>
+
       <li class="nav-item d-flex align-items-center ms-3">
         <button class="btn btn-outline-light btn-sm rounded-pill px-3" (click)="logout()"> Logout</button>
       </li>
     </ul>
   </div>
 </nav>
+
+<div 
+  *ngIf="!isProduction" 
+  class="position-fixed bottom-0 end-0 m-3"
+  style="z-index: 1050;"
+>
+  <span 
+    class="badge rounded-pill px-3 py-2 bg-warning text-dark shadow bounce-badge"
+    style="font-size: 0.75rem;"
+  >
+    {{ environmentName }}
+  </span>
+</div>
   
   <router-outlet></router-outlet>

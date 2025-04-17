@@ -3,5 +3,17 @@
     left: 50%;
     transform: translateX(-50%);
   }
-
+  @keyframes bounceRepeat {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+  
+  .bounce-badge {
+    animation: bounceRepeat 2s ease-in-out infinite;
+  }
+  
   

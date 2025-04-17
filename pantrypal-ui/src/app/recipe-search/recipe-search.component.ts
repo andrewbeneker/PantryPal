@@ -6,6 +6,8 @@ import { Recipe } from '../models/recipe';
 import { Favorite } from '../models/favorite';
 import { FavoriteService } from '../services/favorite.service';
 import { FavoritesComponent } from '../favorites/favorites.component';
+import { Pantryitem } from '../models/pantryitem';
+import { PantryitemService } from '../services/pantryitem.service';
 
 @Component({
   selector: 'app-recipe-search',
@@ -17,13 +19,19 @@ export class RecipeSearchComponent implements OnInit {
   query: string = '';
   recipes: Recipe[] = [];
   favorites: Favorite[] = [];
-
-  constructor(private recipeService: RecipesService, private favoriteService: FavoriteService) { }
+  pantryItems: Pantryitem[] = [];
+  constructor(private recipeService: RecipesService, private favoriteService: FavoriteService,  private pantryItemService: PantryitemService) { }
 
   ngOnInit(): void {
     this.loadFavorites();
-  }
+    this.loadPantryItems();
 
+  }
+  loadPantryItems(): void {
+    this.pantryItemService.getPantryItems().subscribe(items => {
+      this.pantryItems = items as Pantryitem[];
+    });
+  }
   search() {
     if (this.query.trim()) {
       this.recipeService.searchRecipes(this.query).subscribe(response => {
@@ -35,7 +43,7 @@ export class RecipeSearchComponent implements OnInit {
       });
     }
   }
-
+  
   createFavorite(recipe: Recipe) {
 
     const favoriteRecipe: Favorite = {

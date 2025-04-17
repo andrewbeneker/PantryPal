@@ -7,8 +7,10 @@ import { RecipeSearchComponent } from './recipe-search/recipe-search.component';
 import { PantryitemComponent } from './pantryitem/pantryitem.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { noAuthGuard } from '../no-auth.guard';
+import { RecommendedRecipesComponent } from './recommended-recipes/recommended-recipes.component';
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: 'recommended', component: RecommendedRecipesComponent, canActivate: [authGuard] },
     { path: 'login', component: LoginComponent, canActivate: [noAuthGuard] },
     { path: 'pantry', component: PantryitemComponent, canActivate: [authGuard] },
     { path: 'recipes/search', component: RecipeSearchComponent },

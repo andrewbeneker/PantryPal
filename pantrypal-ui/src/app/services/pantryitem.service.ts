@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Pantryitem } from '../models/pantryitem';
 import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,7 @@ import { environment } from '../../environments/environment';
 export class PantryitemService {
 
   private pantryItemUrl = `${environment.apiUrl}/PantryItems`;
+  private spoonApiUrl = `${environment.apiUrl}`;
   constructor(private http: HttpClient) { }
 
   getPantryItems(){
@@ -27,6 +29,10 @@ export class PantryitemService {
 
   deletePantryItem(pantryId: number){
     return this.http.delete(`${this.pantryItemUrl}/${pantryId}`)
+  }
+  getRecipesFromPantry(pantryItems: string[]): Observable<any[]> {
+    const ingredients = pantryItems.join(',');
+    return this.http.get<any[]>(`${this.spoonApiUrl}/spoonacular/recipes?ingredients=${ingredients}`);
   }
 
 

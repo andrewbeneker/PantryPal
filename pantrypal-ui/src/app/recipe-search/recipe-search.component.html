@@ -2,6 +2,7 @@
   <input [(ngModel)]="query" name="query" placeholder="Search for a recipe..." />
   <button type="submit">Search</button>
 </form>
+
 <!-- wrapped search bar in a form with ngSubmit to make entire form respond to a submit event -->
 
 <div class="recipe-list" *ngIf="recipes.length">

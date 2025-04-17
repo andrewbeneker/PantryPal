@@ -22,12 +22,14 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 
 // Add configuration binding for Edamam settings
 builder.Services.Configure<EdamamSettings>(builder.Configuration.GetSection("Edamam"));
-
+builder.Services.Configure<SpoonacularSettings>(builder.Configuration.GetSection("Spoonacular"));
 // Register HttpClient for API calls
 builder.Services.AddHttpClient<IEdamamService, EdamamService>();
-
+builder.Services.AddHttpClient<ISpoonacularService, SpoonacularService>();
 // Register EdamamService
 builder.Services.AddScoped<IEdamamService, EdamamService>();
+builder.Services.AddScoped<ISpoonacularService, SpoonacularService>();
+
 
 builder.Services.AddCors(options =>
 {
