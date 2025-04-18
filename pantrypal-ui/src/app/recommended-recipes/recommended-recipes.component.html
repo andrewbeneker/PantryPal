@@ -1,24 +1,26 @@
 <div class="recommended-container">
-    <div class="header">
-      <h2>Recommended Recipes</h2>
-      <button 
-        *ngIf="showResetButton"
-        class="reset-btn" 
-        (click)="resetRecommendations()">
-        Reset 🔄
-      </button>
-    </div>
-  
-    <div class="recipes-grid" *ngIf="recipes.length > 0; else noResults">
-      <div class="recipe-card" *ngFor="let recipe of recipes">
-        <img [src]="recipe.image" [alt]="recipe.label" />
-        <h4>{{ recipe.label }}</h4>
-        <a [href]="recipe.url" target="_blank" class="view-link">View Recipe</a>
-      </div>
-    </div>
-  
-    <ng-template #noResults>
-      <p>No recipes found using your current pantry ingredients.</p>
-    </ng-template>
+  <div class="header">
+    <h2>Recommended Recipes</h2>
+    <button *ngIf="showResetButton" class="reset-btn" (click)="resetRecommendations()">
+      Reset Suggestions 🔄
+    </button>
   </div>
-  
+  <div class="recipes-grid" *ngIf="recipes.length > 0; else noResults">
+    <div class="recipe-card" *ngFor="let recipe of recipes">
+      <img [src]="recipe.image" [alt]="recipe.label" />
+      <h3>{{ recipe.label }}</h3>
+      <a [href]="recipe.url" target="_blank" class="view-link">View Recipe</a>
+      <div *ngIf="!isFavorite(recipe); else alreadyFavorited">
+        <button class="btn btn-success ms-2" (click)="createFavorite(recipe)">
+          ❤️ Add to Favorites
+        </button>
+      </div>
+      <ng-template #alreadyFavorited>
+        <p class="text-success fw-bold">In Favorites ✅</p>
+      </ng-template>
+    </div>
+  </div>
+  <ng-template #noResults>
+    <p>No recipes found using your current pantry ingredients.</p>
+  </ng-template>
+</div>

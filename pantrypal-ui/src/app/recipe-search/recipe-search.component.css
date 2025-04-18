@@ -1,55 +1,88 @@
 .search-container {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  input {
-    flex-grow: 1;
-    padding: 8px;
-    font-size: 16px;
-  }
-  
-  button {
-    padding: 8px 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .recipe-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-  }
-  
-  .recipe-card {
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    text-align: center;
-  }
-  
-  .recipe-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-  }
-  .recipe-card h3{
-    font-size: 1.5rem;
-  }
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+  width: 100%;
+}
 
-  .recipe-card a {
-    display: inline-block;
-    margin-bottom: 10px;
-    text-decoration: none;
-    color: #4CAF50;
-    font-weight: bold;
-  }
-  
-  .recipe-card a:hover {
-    text-decoration: underline;
-    transform: scale(1.1);
-  }
+.container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+/* Grouping input + button */
+input {
+  padding: 10px;
+  width: 20%;
+  font-size: 18px;
+  margin-right: 0.5rem;
+}
+
+button {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.header {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.header h2 {
+  text-align: center;
+  margin: 0;
+}
+
+.recipe-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.recipe-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.recipe-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.recipe-card h3 {
+  font-size: 1.5rem;
+}
+
+.recipe-card:hover {
+  transform: scale(1.02);
+}
+
+.recipe-card a {
+  display: inline-block;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: #4CAF50;
+  font-weight: bold;
+  transition: transform 0.2s ease-in-out;
+}
+
+.recipe-card a:hover {
+  text-decoration: underline;
+  transform: scale(1.1);
+}
+
+.recipe-search-button:hover {
+  background-color: #05871b;
+}
+

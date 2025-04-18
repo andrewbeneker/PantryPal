@@ -1,12 +1,17 @@
 <form class="search-container" (ngSubmit)="search()">
-  <input [(ngModel)]="query" name="query" placeholder="Search for a recipe..." />
-  <button type="submit">Search</button>
+  <div class="container">
+    <input [(ngModel)]="query" name="query" placeholder="Search for a recipe..." />
+    <button type="submit" class="recipe-search-button">Search</button>
+    <div class="header">
+      <h2>Recipe Search</h2>
+    </div>
+  </div>
 </form>
 
 <!-- wrapped search bar in a form with ngSubmit to make entire form respond to a submit event -->
 
 <div class="recipe-list" *ngIf="recipes.length">
-  <div *ngFor="let recipe of recipes" class="recipe-card">
+  <div class="recipe-card" *ngFor="let recipe of recipes">
     <img [src]="recipe.image" [alt]="recipe.label" />
     <h3>{{ recipe.label }}</h3>
     <a [href]="recipe.url" target="_blank">View Recipe</a>
