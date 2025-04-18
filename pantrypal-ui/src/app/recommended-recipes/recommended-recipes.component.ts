@@ -108,4 +108,47 @@ export class RecommendedRecipesComponent implements OnInit {
     localStorage.removeItem('recommendedRecipes');
     this.fetchRecommendedRecipes(); // Re-fetch using latest pantry
   }
+
+  recommendBasedOnExpiring(): void {
+    const pantryRaw = localStorage.getItem('pantryItems');
+    if (!pantryRaw) {
+      console.warn('No pantry items found in local storage.');
+      return;
+    }
+  
+    const pantryItems: any[] = JSON.parse(pantryRaw);
+  
+    // Filter items expiring soon using your existing utility
+    const expiringItems = pantryItems.filter(item => this.isItemExpiringSoon(item.expirationDate));
+  
+    if (expiringItems.length === 0) {
+      console.info('📦 No pantry items are expiring soon.');
+      this.recipes = [];
+      return;
+    }
+  
+    const expiringIngredientNames = expiringItems.map(item => item.itemName);
+    console.log('⏳ Fetching recipes for expiring items:', expiringIngredientNames);
+  
+    this.pantryItemService.getRecipesFromPantry(expiringIngredientNames).subscribe({
+      next: (rawResponse: any[]) => {
+        this.recipes = rawResponse.map((recipe: any) => ({
+          label: recipe.title,
+          image: recipe.image,
+          url: `https://spoonacular.com/recipes/${recipe.title?.replace(/\s+/g, '-').toLowerCase()}-${recipe.id}`
+        }));
+  
+        // Optionally cache them separately
+        localStorage.setItem('cachedExpiringRecipes', JSON.stringify(this.recipes));
+        console.log('✅ Recipes for expiring items loaded and cached');
+      },
+      error: (error) => {
+        console.error('❌ Error fetching recipes for expiring items:', error);
+      }
+    });
+  }
+
+  isItemExpiringSoon(date: Date | string): boolean {
+    return this.pantryItemService.isExpiringSoon(date);
+  }
 }
