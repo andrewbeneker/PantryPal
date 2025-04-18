@@ -1,6 +1,18 @@
 .favorites-list {
     margin-top: 20px;
   }
+
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .header h2 {
+    text-align: center;
+    margin: 0;
+  }
   
   .favorite-item {
     list-style: none;
@@ -55,6 +67,7 @@
     border: none;
     cursor: pointer;
     font-size: 15px;
+    margin: 40px;
   }
 
   .btn:hover {
