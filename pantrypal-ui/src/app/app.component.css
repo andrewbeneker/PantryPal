@@ -1,20 +1,63 @@
-.navbar-brand-center {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+.custom-navbar {
+  background-color: var(--bg-cream);
+  border-bottom: 1px solid var(--card-border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04); /* stronger shadow */
+  border-radius: 0 0 1rem 1rem;
+  padding: 1rem 2rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.navbar-nav {
+  display: flex;
+  gap: 1rem; /* adds spacing between links */
+  align-items: center;
+}
+
+.navbar-nav .nav-link {
+  color: var(--text-green);
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+  background-color: var(--btn-cream);
+  color: var(--btn-green);
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-green);
+}
+
+.logout-btn {
+  background-color: white;
+  color: var(--btn-green);
+  border: 2px solid var(--btn-green);
+  font-weight: 600;
+  padding: 0.4rem 1.25rem;
+  border-radius: 999px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.logout-btn:hover {
+  background-color: var(--btn-green);
+  color: white;
+}
+
+
+@keyframes bounceRepeat {
+  0%, 100% {
+    transform: translateY(0);
   }
-  @keyframes bounceRepeat {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-4px);
-    }
-  }
-  
-  .bounce-badge {
-    animation: bounceRepeat 2s ease-in-out infinite;
+  50% {
+    transform: translateY(-4px);
   }
 
- 
-  
+}
+
+.bounce-badge {
+  animation: bounceRepeat 2s ease-in-out infinite;
+}
