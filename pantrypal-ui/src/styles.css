@@ -2,24 +2,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
 :root {
-  --bg-cream: #FDFAF4;
-  --text-green: #2E5C34;
-  --card-border: #E2E2E2;
-  --btn-green: #2E5C34;
-  --btn-cream: #E6EEDF;
+  --bg-cream: #fdfaf4;
+  --text-green: #2e5c34;
+  --card-border: #e2e2e2;
+  --btn-green: #2e5c34;
+  --btn-cream: #e6eedf;
+  --accent-green: #82c91e;
+  --reset-yellow: #ffc107;
+  --highlight-yellow: #ffe867;
 }
+
 body {
   font-family: 'Poppins', sans-serif;
   background-color: var(--bg-cream);
   color: var(--text-green);
   padding: 2rem;
 }
+
 h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
   font-weight: bold;
   color: var(--text-green);
 }
+
 button {
   border: none;
   border-radius: 999px;
@@ -28,24 +34,24 @@ button {
   cursor: pointer;
   font-size: 0.9rem;
 }
+
 .edit-btn {
   background-color: var(--btn-green);
   color: white;
 }
+
 .delete-btn {
   background-color: white;
   color: var(--btn-green);
   border: 2px solid var(--btn-green);
 }
+
 .form-check-input {
   transform: scale(1.2);
   margin-right: 0.5rem;
 }
+
 /* Modal Styling */
 .modal-content {
-  border-radius: 1
+  border-radius: 1rem;
 }
-
-
-
-

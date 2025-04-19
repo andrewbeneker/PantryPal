@@ -1,19 +1,24 @@
-<div class="favorites-list">
-    <div class="header">
-        <h2>Favorite Recipes</h2>
+<div class="favorites-container">
+    <h2 class="favorites-header">Your Favorite Recipes 💚</h2>
+  
+    <div *ngIf="favorites.length === 0" class="no-favorites">
+      You haven’t added any recipes to your favorites yet.
+    </div>
+  
+    <div class="favorites-grid" *ngIf="favorites.length > 0">
+      <div *ngFor="let favorite of favorites" class="favorite-card">
+        <img [src]="favorite.recipeImage" [alt]="favorite.recipeName" class="favorite-img" />
+        <div class="favorite-details">
+          <h3 class="favorite-title">{{ favorite.recipeName }}</h3>
+  
+          <div class="favorite-actions">
+            <a [href]="favorite.recipeUrl" target="_blank" class="view-recipe-link">View Recipe</a>
+            <button *ngIf="favorite.favoriteId" class="remove-btn" (click)="deleteFavorite(favorite.favoriteId)">
+              Remove ❌
+            </button>
+          </div>
         </div>
-    <ul>
-        <li *ngFor="let favorite of favorites" class="favorite-item">
-            <div class="favorite-card">
-                <img [src]="favorite.recipeImage" [alt]="favorite.recipeName" class="favorite-img" />
-                <div class="favorite-details">
-                    <h3>{{ favorite.recipeName }}</h3>
-                    <a [href]="favorite.recipeUrl" target="_blank" class="view-recipe-link">View Recipe</a>
-                </div>
-                <button *ngIf="favorite.favoriteId" class="btn btn-danger ms-2"
-                    (click)="deleteFavorite(favorite.favoriteId)">Remove from Favorites</button>
-                <!-- use of *ngIf due to favoriteId being an optional property - button only displayed if favoriteId exists -->
-            </div>
-        </li>
-    </ul>
-</div>
+      </div>
+    </div>
+  </div>
+  

@@ -5,7 +5,6 @@ import { environment } from '../../environments/environment';
 import { FavoriteService } from '../services/favorite.service';
 import { Favorite } from '../models/favorite';
 import { Recipe } from '../models/recipe';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-recommended-recipes',
@@ -18,7 +17,7 @@ export class RecommendedRecipesComponent implements OnInit {
   showResetButton = !environment.production;
   favorites: Favorite[] = [];
 
-  constructor(private pantryItemService: PantryitemService, private favoriteService: FavoriteService) { }
+  constructor(private pantryItemService: PantryitemService, private favoriteService: FavoriteService) {}
 
   ngOnInit(): void {
     this.fetchRecommendedRecipes();
@@ -29,26 +28,25 @@ export class RecommendedRecipesComponent implements OnInit {
     this.favoriteService.getFavorites().subscribe(data => {
       console.log('Favorites from API:', data);
       this.favorites = data as any[];
-    })
+    });
   }
 
-   createFavorite(recipe: Recipe) {
-  
-      const favoriteRecipe: Favorite = {
-        recipeName: recipe.label,
-        recipeUrl: recipe.url,
-        recipeImage: recipe.image
-      }
-  
-      this.favoriteService.createFavorite(favoriteRecipe).subscribe(data => { 
-        alert('Favorite recipe added!')
-        this.loadFavorites(); // refreshes current favorites after creating a new favorite
-      });
-    }
+  createFavorite(recipe: Recipe) {
+    const favoriteRecipe: Favorite = {
+      recipeName: recipe.label,
+      recipeUrl: recipe.url,
+      recipeImage: recipe.image
+    };
 
-    isFavorite(recipe: Recipe): boolean {
-      return this.favorites.some(fav => fav.recipeUrl === recipe.url);
-    }
+    this.favoriteService.createFavorite(favoriteRecipe).subscribe(data => {
+      alert('Favorite recipe added!');
+      this.loadFavorites(); // refreshes current favorites after creating a new favorite
+    });
+  }
+
+  isFavorite(recipe: Recipe): boolean {
+    return this.favorites.some(fav => fav.recipeUrl === recipe.url);
+  }
 
   deleteFavorite(favoriteId: number): void {
     if (confirm('Are you sure you want to delete this item?')) {
@@ -63,7 +61,6 @@ export class RecommendedRecipesComponent implements OnInit {
     const pantryRaw = localStorage.getItem('pantryItems');
     const snapshotRaw = localStorage.getItem('pantrySnapshot');
     const cachedRaw = localStorage.getItem('cachedRecipes');
-
 
     if (!pantryRaw) {
       console.warn('🚫 No pantry items found in local storage.');
@@ -91,10 +88,8 @@ export class RecommendedRecipesComponent implements OnInit {
           url: `https://spoonacular.com/recipes/${recipe.title?.replace(/\s+/g, '-').toLowerCase()}-${recipe.id}`
         }));
 
-        // ✅ Save new snapshot and recipes to localStorage
         localStorage.setItem('cachedRecipes', JSON.stringify(this.recipes));
         localStorage.setItem('pantrySnapshot', JSON.stringify(pantryItems));
-
         console.log('✅ New recommended recipes loaded and cached');
       },
       error: (error) => {
@@ -106,7 +101,7 @@ export class RecommendedRecipesComponent implements OnInit {
   resetRecommendations(): void {
     localStorage.removeItem('pantrySnapshot');
     localStorage.removeItem('recommendedRecipes');
-    this.fetchRecommendedRecipes(); // Re-fetch using latest pantry
+    this.fetchRecommendedRecipes();
   }
 
   recommendBasedOnExpiring(): void {
@@ -115,21 +110,19 @@ export class RecommendedRecipesComponent implements OnInit {
       console.warn('No pantry items found in local storage.');
       return;
     }
-  
+
     const pantryItems: any[] = JSON.parse(pantryRaw);
-  
-    // Filter items expiring soon using your existing utility
     const expiringItems = pantryItems.filter(item => this.isItemExpiringSoon(item.expirationDate));
-  
+
     if (expiringItems.length === 0) {
       console.info('📦 No pantry items are expiring soon.');
       this.recipes = [];
       return;
     }
-  
+
     const expiringIngredientNames = expiringItems.map(item => item.itemName);
     console.log('⏳ Fetching recipes for expiring items:', expiringIngredientNames);
-  
+
     this.pantryItemService.getRecipesFromPantry(expiringIngredientNames).subscribe({
       next: (rawResponse: any[]) => {
         this.recipes = rawResponse.map((recipe: any) => ({
@@ -137,8 +130,7 @@ export class RecommendedRecipesComponent implements OnInit {
           image: recipe.image,
           url: `https://spoonacular.com/recipes/${recipe.title?.replace(/\s+/g, '-').toLowerCase()}-${recipe.id}`
         }));
-  
-        // Optionally cache them separately
+
         localStorage.setItem('cachedExpiringRecipes', JSON.stringify(this.recipes));
         console.log('✅ Recipes for expiring items loaded and cached');
       },
