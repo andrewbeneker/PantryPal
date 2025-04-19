@@ -26,6 +26,7 @@
         </div>
         <h4 class="item-header">{{ item.itemName }}</h4>
         <div class="item-details">Qty: {{ item.quantity }}</div>
+        <div class="item-details">Unit: {{ item.unitOfMeasure }}</div>
         <div class="item-details">Expires: {{ item.expirationDate | date:'longDate' }}</div>
         <div *ngIf="getItemBadge(item.expirationDate) as badge" class="mt-1">
           <span class="badge rounded-pill px-3 py-2"
