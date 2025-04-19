@@ -19,6 +19,10 @@ button {
 }
 
 .recipe-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
   border: 1px solid #ddd;
   padding: 15px;
   border-radius: 8px;
@@ -35,10 +39,16 @@ button {
   width: 100%;
   height: auto;
   border-radius: 5px;
+  margin-bottom: 0.75rem;
 }
 
 .recipe-card h3 {
   font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-actions {
+  margin-top: auto;
 }
 
 .recipe-card a,
@@ -69,20 +79,32 @@ button {
   margin: 0;
 }
 
-.reset-btn {
-  position: absolute;
-  right: 1rem;
+.recommended-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-green);
+  text-align: center;
 }
 
-.reset-btn {
-  background-color: #dba60a;
+.expiring-button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.expiring-btn {
+  background-color: var(--btn-green);
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
   border: none;
-  padding: 6px 15px;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
 
-.reset-btn:hover {
-  background-color: #dbbc0d;
+.expiring-btn:hover {
+  background-color: #214926;
+  transform: scale(1.03);
 }

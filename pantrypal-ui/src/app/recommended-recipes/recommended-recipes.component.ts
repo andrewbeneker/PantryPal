@@ -16,12 +16,14 @@ export class RecommendedRecipesComponent implements OnInit {
   recipes: any[] = [];
   showResetButton = !environment.production;
   favorites: Favorite[] = [];
+  hasExpiringItems: boolean = false;
 
   constructor(private pantryItemService: PantryitemService, private favoriteService: FavoriteService) {}
 
   ngOnInit(): void {
     this.fetchRecommendedRecipes();
     this.loadFavorites();
+    this.checkExpiringItems();
   }
 
   loadFavorites(): void {
@@ -115,7 +117,7 @@ export class RecommendedRecipesComponent implements OnInit {
     const expiringItems = pantryItems.filter(item => this.isItemExpiringSoon(item.expirationDate));
 
     if (expiringItems.length === 0) {
-      console.info('📦 No pantry items are expiring soon.');
+      console.info(' No pantry items are expiring soon.');
       this.recipes = [];
       return;
     }
@@ -142,5 +144,14 @@ export class RecommendedRecipesComponent implements OnInit {
 
   isItemExpiringSoon(date: Date | string): boolean {
     return this.pantryItemService.isExpiringSoon(date);
+  }
+  checkExpiringItems(): void {
+    const pantryRaw = localStorage.getItem('pantryItems');
+    if (!pantryRaw) return;
+  
+    const pantryItems: any[] = JSON.parse(pantryRaw);
+    this.hasExpiringItems = pantryItems.some(item =>
+      this.isItemExpiringSoon(item.expirationDate)
+    );
   }
 }

@@ -10,16 +10,17 @@
       <h3>{{ recipe.label }}</h3>
       <a [href]="recipe.url" target="_blank">View Recipe</a>
 
-      <!-- Add to Favorites Button -->
-      <div *ngIf="!isFavorite(recipe); else alreadyFavorited">
-        <button class="btn btn-success ms-2" (click)="createFavorite(recipe)">
-          ❤️ Add to Favorites
-        </button>
-      </div>
+      <div class="card-actions">
+        <div *ngIf="!isFavorite(recipe); else alreadyFavorited">
+          <button class="btn btn-success ms-2" (click)="createFavorite(recipe)">
+            ❤️ Add to Favorites
+          </button>
+        </div>
 
-      <ng-template #alreadyFavorited>
-        <p class="text-success fw-bold">In Favorites ✅</p>
-      </ng-template>
+        <ng-template #alreadyFavorited>
+          <p class="text-success fw-bold">In Favorites ✅</p>
+        </ng-template>
+      </div>
     </div>
   </div>
 </div>
