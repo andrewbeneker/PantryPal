@@ -12,8 +12,6 @@ namespace PantryPalAPI.Services
             _httpClient = httpClient;
             _spoonacularSettings = spoonacularOptions.Value;
 
-            Console.WriteLine("🔑 Spoonacular API Key from config: " + _spoonacularSettings.ApiKey);
-
         }
 
         public async Task<string> SearchRecipesByIngredientsAsync(string ingredients)
@@ -26,7 +24,6 @@ namespace PantryPalAPI.Services
             string encodedIngredients = Uri.EscapeDataString(ingredients);
             string url = $"https://api.spoonacular.com/recipes/findByIngredients?ingredients={encodedIngredients}&number=10&apiKey={_spoonacularSettings.ApiKey}";
 
-            Console.WriteLine($"📡 Spoonacular URL: {url}");
 
             try
             {
@@ -34,7 +31,7 @@ namespace PantryPalAPI.Services
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    Console.WriteLine($"❌ Spoonacular API Error: {response.StatusCode}");
+                    Console.WriteLine($"Spoonacular API Error: {response.StatusCode}");
                     return "[]";
                 }
 
@@ -42,7 +39,7 @@ namespace PantryPalAPI.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"🔥 Exception in SpoonacularService: {ex.Message}");
+                Console.WriteLine($"Exception in SpoonacularService: {ex.Message}");
                 return "[]";
             }
         }

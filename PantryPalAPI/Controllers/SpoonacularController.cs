@@ -36,12 +36,12 @@ namespace PantryPalAPI.Controllers
                 return NotFound("No recipes found with the given ingredients.");
             }
 
-            Console.WriteLine("📦 Raw Spoonacular JSON:");
+            Console.WriteLine("Raw Spoonacular JSON:");
             Console.WriteLine(result);
-            Console.WriteLine("🔍 Raw string length: " + result.Length);
-            Console.WriteLine("🔍 First 500 characters: " + result.Substring(0, 500));
+            Console.WriteLine("Raw string length: " + result.Length);
+            Console.WriteLine("First 500 characters: " + result.Substring(0, 500));
             var parsedResult = JsonConvert.DeserializeObject<List<SpoonacularRecipeDto>>(result);
-            Console.WriteLine("✅ ParsedResult.Count: " + parsedResult?.Count);
+            Console.WriteLine("ParsedResult.Count: " + parsedResult?.Count);
             return Ok(parsedResult);
         }
     }
