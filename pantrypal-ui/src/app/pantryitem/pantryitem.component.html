@@ -28,9 +28,18 @@
         <div class="item-details">Qty: {{ item.quantity }}</div>
         <div class="item-details">Expires: {{ item.expirationDate | date:'longDate' }}</div>
         <div *ngIf="getItemBadge(item.expirationDate) as badge" class="mt-1">
-          <span class="badge rounded-pill" [ngClass]="badge.class">
-            {{ badge.emoji }} {{ badge.text }}
-          </span>
+          <span class="badge rounded-pill px-3 py-2"
+          [ngClass]="[
+            badge.class,
+            badge.class.includes('danger') ? 'flash-red' : '',
+            badge.class.includes('warning') ? 'pulse-yellow' : '',
+            badge.class.includes('success') ? 'glow-green' : ''
+          ]">
+          <small class="d-block fst-italic fw-semibold text-muted mt-1">
+            {{ badge.emoji }} <span class="text-light">{{ badge.text }}</span>
+          </small>
+        </span>
+        
         </div>
       </div>
       <div class="btn-group mt-2">

@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-register',
   imports:[CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './registration.component.html',
+  styleUrls: ['./registration.component.css']
 })
 export class RegisterComponent {
   registerForm: FormGroup;
