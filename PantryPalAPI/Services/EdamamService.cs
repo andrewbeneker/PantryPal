@@ -39,7 +39,7 @@ namespace PantryPalAPI.Services
             }
 
             var jsonString = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<EdamamApiResponse>(jsonString);
+            var result = JsonConvert.DeserializeObject<EdamamApiResponse>(jsonString); // JSON string -> into EdamamApiResponse object
 
             return result.Hits.Select(h => new RecipeDto
             {

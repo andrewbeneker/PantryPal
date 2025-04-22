@@ -20,7 +20,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<PantryPalDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Add configuration binding for Edamam settings
+// Add configuration binding for Edamam & Spoonacular settings
 builder.Services.Configure<EdamamSettings>(builder.Configuration.GetSection("Edamam"));
 builder.Services.Configure<SpoonacularSettings>(builder.Configuration.GetSection("Spoonacular"));
 // Register HttpClient for API calls
