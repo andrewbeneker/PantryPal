@@ -213,7 +213,7 @@ export class PantryitemComponent implements OnInit {
   deleteSelectedItems(): void {
     if (this.selectedItemIds.length === 0) return;
 
-    if (confirm('Are you sure you want to delete all selected items?')) {
+    if (confirm('If you delete items this way, they will not contribute toward your challenge stats. Are you sure you want to delete these items?')) {
       this.selectedItemIds.forEach(id => {
         this.pantryService.deletePantryItem(id).subscribe(() => {
           this.pantryItems = this.pantryItems.filter(item => item.itemId !== id);

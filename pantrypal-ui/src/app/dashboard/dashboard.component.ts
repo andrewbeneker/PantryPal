@@ -43,6 +43,11 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  get usedPercentage(): number {
+    const total = this.stats.itemsUsed + this.stats.itemsWasted;
+    return total === 0 ? 0 : Math.round((this.stats.itemsUsed / total) * 100);
+  }
+
 
   loadPantryItems(): void {
     this.pantryService.getPantryItems().subscribe((items: any) => {

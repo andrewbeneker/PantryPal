@@ -36,10 +36,16 @@
     </div>
 
     <div class="challenges-box">
-      <h3>Empty the Pantry Challenge Stats:</h3>
+      <h3>♻️ My Food Waste Stats 🗑️</h3>
       <div class="stats">
         <p>Total Items Used: {{ stats.itemsUsed }}</p>
         <p>Total Items Wasted: {{ stats.itemsWasted }}</p>
+    <p></p>
+        <div class="progress-container">
+          <div class="progress-bar" [style.width.%]="usedPercentage"></div>
+        </div>
+        <br>
+        <p>{{ usedPercentage }}% items used - {{100 - usedPercentage}}% items wasted</p>
       </div>
     </div>
   </div>
