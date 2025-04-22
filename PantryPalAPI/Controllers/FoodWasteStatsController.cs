@@ -90,9 +90,7 @@ namespace PantryPalAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/FoodWasteStats
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost("ItemUsed")]
+        [HttpPost("ItemsUsed")]
         public async Task<ActionResult<FoodWasteStat>> PostItemUsed()
         {
             var userIdClaim = User.FindFirst("UserId")?.Value;
@@ -100,51 +98,64 @@ namespace PantryPalAPI.Controllers
             {
                 return Unauthorized("UserId claim is missing in token");
             }
+
             int userId = int.Parse(userIdClaim);
 
             var stats = await _context.FoodWasteStats.FindAsync(userId);
 
-            stats.ItemsUsed += 1;
-            Console.WriteLine($"error: {stats.ItemsUsed}");
+            if (stats == null)
+            {
+                stats = new FoodWasteStat
+                {
+                    UserId = userId,
+                    ItemsUsed = 1,
+                    ItemsWasted = 0
+                };
+                _context.FoodWasteStats.Add(stats);
+            }
+            else
+            {
+                stats.ItemsUsed += 1;
+            }
 
             await _context.SaveChangesAsync();
 
             return Ok(stats);
         }
 
-        [HttpPost("ItemWasted")]
-        public async Task<ActionResult<FoodWasteStatsDTO>> PostItemWasted(FoodWasteStatsDTO itemWasted)
+        [HttpPost("ItemsWasted")]
+        public async Task<ActionResult<FoodWasteStat>> PostItemWasted()
         {
             var userIdClaim = User.FindFirst("UserId")?.Value;
             if (string.IsNullOrEmpty(userIdClaim))
             {
                 return Unauthorized("UserId claim is missing in token");
             }
+
             int userId = int.Parse(userIdClaim);
 
-            //var stats = await _context.FoodWasteStats.FindAsync(userId);
+            var stats = await _context.FoodWasteStats.FindAsync(userId);
 
-            var stat = await _context.FoodWasteStats.FirstOrDefaultAsync(s => s.UserId == userId);
-            if (stat == null)
+            if (stats == null)
             {
-                stat = new FoodWasteStat { UserId = userId, ItemsUsed = 0, ItemsWasted = 1 };
-                _context.FoodWasteStats.Add(stat);
-            }
-
-                var newItemWasted = new FoodWasteStatsDTO()
+                stats = new FoodWasteStat
                 {
                     UserId = userId,
-                    ItemsWasted = itemWasted.ItemsWasted,
+                    ItemsUsed = 0,
+                    ItemsWasted = 1
                 };
-                newItemWasted.ItemsWasted += 1;
- 
-            Console.WriteLine(stat.ItemsWasted);
+                _context.FoodWasteStats.Add(stats);
+            }
+            else
+            {
+                stats.ItemsWasted += 1;
+            }
 
-            //_context.FoodWasteStats.Add(newItemWasted);
             await _context.SaveChangesAsync();
 
-            return Ok(newItemWasted);
+            return Ok(stats);
         }
+
         // DELETE: api/FoodWasteStats/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFoodWasteStat(int id)
