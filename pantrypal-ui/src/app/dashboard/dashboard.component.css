@@ -4,6 +4,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  padding: 2rem;
 }
 
 .dashboard-container {
@@ -19,6 +20,7 @@
   align-items: center;
 }
 
+/* 🌞 Greeting Header */
 .greeting-section {
   text-align: center;
   margin-bottom: 20px;
@@ -26,13 +28,17 @@
 
 .greeting-section h1 {
   font-size: 2.5em;
-  margin-bottom: 20px;
-  border-style: groove;
+  border: 2px solid var(--btn-green);
+  background-color: var(--btn-cream);
+  color: var(--btn-green);
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
-.greeting-section h3{
+.greeting-section h3 {
   margin-bottom: 20px;
 }
 
@@ -41,30 +47,52 @@
   margin-bottom: 20px;
 }
 
-.pantry-summary {
-  margin-bottom: 30px;
-  border-style: groove;
+/* 📦 Pantry Summary & ⚠️ Expiring Soon Card */
+.card-box {
+  background-color: var(--btn-cream);
   padding: 20px;
-  border-radius: 8px;
-  
+  border-radius: 15px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+  margin-bottom: 30px;
+  width: 100%;
+  text-align: center;
+  border-left: 4px solid var(--btn-green);
 }
 
 .pantry-summary h5 {
   font-size: 1.5em;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  color: var(--text-green);
 }
 
 .pantry-summary ul {
   list-style-type: none;
   padding: 0;
+  margin: 0 auto;
+  max-width: 500px;
+  text-align: left;
 }
 
-.pantry-summary li {
-  font-size: 1.1em;
-  margin-bottom: 10px;
+.pantry-summary ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  margin-bottom: 15px;
+  transition: box-shadow 0.3s, transform 0.3s;
 }
 
+.pantry-summary ul li:hover {
+  background-color: #fdfaf4;
+  box-shadow: 0 0 10px rgba(46, 92, 52, 0.1);
+  transform: scale(1.01);
+}
+
+/* ♻️ Challenges Box */
 .challenges-box {
   border-style: groove;
   padding: 20px;
@@ -75,34 +103,43 @@
   font-size: 1.5em;
   margin-bottom: 25px;
   font-weight: bold;
+  color: var(--text-green);
 }
 
-.quick-actions .btn {
-  width: 120px;
-  padding: 10px;
-  background-color: #f44336;
-  color: white;
-  font-size: 15px;
-  font-weight: bold;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+/* 🧾 Stats Section */
+.stats {
+  background-color: var(--btn-cream);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+  text-align: center;
 }
 
-.pantry-summary ul li {
+/* 📊 Dual-colored Glowing Progress Bar */
+.progress-container {
+  width: 100%;
+  height: 40px;
   display: flex;
-  flex-direction: row;
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  max-width: 1000px;
-  margin: 0 auto;
-  margin-bottom: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid var(--btn-green);
+  box-shadow: 0 0 6px rgba(46, 92, 52, 0.2);
+  margin-top: 10px;
 }
 
+.used-bar {
+  background: linear-gradient(90deg, #2e5c34, #5cb85c);
+  height: 100%;
+  transition: width 0.4s ease-in-out;
+}
 
+.wasted-bar {
+  background: linear-gradient(90deg, #dc3545, #ff4f4f);
+  height: 100%;
+  transition: width 0.4s ease-in-out;
+}
+
+/* 🔴 Flash animation for expired badges */
 .flash-red {
   animation: pulseRed 3s ease-in-out infinite;
   transform-origin: center;
@@ -113,35 +150,17 @@
     box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.75);
     transform: scale(1);
   }
-
   70% {
     box-shadow: 0 0 10px 5px rgba(220, 53, 69, 0.5);
     transform: scale(1.1);
   }
-
   100% {
     box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
     transform: scale(1);
   }
 }
 
-.progress-container {
-  width: 100%;
-  height: 40px;
-  background-color: #f71414;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-top: 10px;
-}
-
-.progress-bar {
-  height: 100%;
-  background-color: #4caf50; /* Green for success */
-  transition: width 0.4s ease-in-out;
-}
-
-
-/* 🟡 Pulse animation for items expiring soon */
+/* 🟡 Pulse animation for expiring soon items */
 .pulse-yellow {
   animation: pulseYellow 2s infinite;
 }
@@ -149,18 +168,20 @@
 @keyframes pulseYellow {
   0% {
     box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.6);
-    /* Bootstrap warning yellow */
   }
-
   70% {
     box-shadow: 0 0 0 15px rgba(255, 193, 7, 0);
   }
-
   100% {
     box-shadow: 0 0 0 0 rgba(255, 193, 7, 0);
   }
 }
 
+.badgeDisplay {
+  padding-left: 15px;
+}
+
+/* Button Hover Effects */
 .btn-warning:hover {
   background-color: #e0a800;
   cursor: pointer;
@@ -169,8 +190,4 @@
 .btn-danger:hover {
   background-color: #bd2130;
   cursor: pointer;
-}
-
-.badgeDisplay {
-padding-left: 15px;
 }
