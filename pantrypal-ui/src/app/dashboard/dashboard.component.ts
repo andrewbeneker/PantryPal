@@ -38,46 +38,47 @@ export class DashboardComponent implements OnInit {
   }
 
   loadStats(): void {
-    this.foodStatsService.getStats().subscribe((data: any) => {
-      this.stats = data
-    })
-  };
+    this.foodStatsService.getStats().subscribe((data: Foodstats) => {
+      this.stats = data;
+    });
+  }
 
-loadPantryItems(): void {
-  this.pantryService.getPantryItems().subscribe((items: any) => {
-    const pantryItems = items as Pantryitem[];
-    this.pantryItemCount = pantryItems.length;
 
-    this.expiringSoonItems = pantryItems
-      .filter(item => this.isItemExpiringSoon(item.expirationDate))
-      .sort((a, b) =>
-        new Date(a.expirationDate).getTime() - new Date(b.expirationDate).getTime()
-      )
-      .slice(0, 5);  // gets top 5 expiring items
-  });
+  loadPantryItems(): void {
+    this.pantryService.getPantryItems().subscribe((items: any) => {
+      const pantryItems = items as Pantryitem[];
+      this.pantryItemCount = pantryItems.length;
 
-}
+      this.expiringSoonItems = pantryItems
+        .filter(item => this.isItemExpiringSoon(item.expirationDate))
+        .sort((a, b) =>
+          new Date(a.expirationDate).getTime() - new Date(b.expirationDate).getTime()
+        )
+        .slice(0, 5);  // gets top 5 expiring items
+    });
 
-logout(): void {
-  localStorage.removeItem('token');
-  this.router.navigate(['/login']);
-}
+  }
 
-isItemExpired(date: Date | string): boolean {
-  return this.pantryService.isExpired(date);
-}
+  logout(): void {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
 
-isItemExpiringSoon(date: Date | string): boolean {
-  return this.pantryService.isExpiringSoon(date);
-}
+  isItemExpired(date: Date | string): boolean {
+    return this.pantryService.isExpired(date);
+  }
 
-getDaysUntilExpiration(date: Date | string): string {
-  return this.pantryService.daysUntilExpiration(date);
-}
+  isItemExpiringSoon(date: Date | string): boolean {
+    return this.pantryService.isExpiringSoon(date);
+  }
 
-getItemBadge(date: Date | string): { emoji: string, class: string, text: string } {
-  return this.pantryService.getExpirationBadge(date);
-}
+  getDaysUntilExpiration(date: Date | string): string {
+    return this.pantryService.daysUntilExpiration(date);
+  }
+
+  getItemBadge(date: Date | string): { emoji: string, class: string, text: string } {
+    return this.pantryService.getExpirationBadge(date);
+  }
 
 
 
