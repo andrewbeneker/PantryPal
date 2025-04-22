@@ -6,28 +6,30 @@
       <p>Today's Date: {{ today | date:'fullDate' }}</p>
     </div>
 
-    <div class="pantry-summary">
-      <h5>Pantry Summary</h5>
+    <div class="pantry-summary card-box">
+      <h5>📦 Pantry Summary</h5>
       <ul>
         <li>Total Pantry Items: {{ pantryItemCount }}</li>
       </ul>
-
-      <h5>Expiring Soon ⚠️</h5>
+    </div>
+    
+    <div class="pantry-summary card-box">
+      <h5>⚠️ Expiring Soon</h5>
       <ul *ngIf="expiringSoonItems.length > 0; else noExpiring">
         <li *ngFor="let item of expiringSoonItems">
           {{ item.itemName }}:
           <span class="badgeDisplay">
             <span *ngIf="getItemBadge(item.expirationDate) as badge" class="badge rounded-pill px-3 py-2 me-2"
-            [ngClass]="[
-              badge.class, badge.class.includes('danger') ? 'flash-red' : '',
-              badge.class.includes('warning') ? 'pulse-yellow' : '']">
-  
-            <small class="d-block fst-italic fw-semibold text-muted mt-1">
-              {{ badge.emoji }} <span class="text-light">{{ badge.text }}</span>
-            </small>
+              [ngClass]="[
+                badge.class,
+                badge.class.includes('danger') ? 'flash-red' : '',
+                badge.class.includes('warning') ? 'pulse-yellow' : ''
+              ]">
+              <small class="d-block fst-italic fw-semibold text-muted mt-1">
+                {{ badge.emoji }} <span class="text-light">{{ badge.text }}</span>
+              </small>
+            </span>
           </span>
-          </span>
-
         </li>
       </ul>
       <ng-template #noExpiring>
@@ -40,11 +42,11 @@
       <div class="stats">
         <p>Total Items Used: {{ stats.itemsUsed }}</p>
         <p>Total Items Wasted: {{ stats.itemsWasted }}</p>
-    <p></p>
         <div class="progress-container">
-          <div class="progress-bar" [style.width.%]="usedPercentage"></div>
+          <div class="used-bar" [style.width.%]="usedPercentage"></div>
+          <div class="wasted-bar" [style.width.%]="100 - usedPercentage"></div>
         </div>
-        <br>
+        <br />
         <p>{{ usedPercentage }}% items used - {{100 - usedPercentage}}% items wasted</p>
       </div>
     </div>
