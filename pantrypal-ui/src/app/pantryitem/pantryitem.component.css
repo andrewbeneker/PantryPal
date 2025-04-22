@@ -215,6 +215,31 @@ button {
   }
 }
 
+.btn-success.px-4 {
+  background-color: green;
+  color: white;
+}
+
+.btn-success.px-4:hover {
+  background-color: transparent;
+  color: green;
+  border: 1px solid green;
+}
+
+.btn-outline-warning.px-4 {
+  background-color: orange;
+  color: white;
+  border: 1px solid orange;
+}
+
+.btn-outline-warning.px-4:hover {
+  background-color: transparent;
+  color: orange;
+  border: 1px solid orange;
+}
+
+
+
   
 
 
