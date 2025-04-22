@@ -23,9 +23,8 @@ namespace PantryPalAPI.Controllers
             _context = context;
         }
 
-        // GET: api/FoodWasteStats
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FoodWasteStatsDTO>>> GetFoodWasteStats()
+        public async Task<ActionResult<FoodWasteStatsDTO>> GetFoodWasteStats()
         {
             var userIdClaim = User.FindFirst("UserId")?.Value;
             if (string.IsNullOrEmpty(userIdClaim))
@@ -34,15 +33,21 @@ namespace PantryPalAPI.Controllers
             }
             int userId = int.Parse(userIdClaim);
 
-            var stats = await _context.FoodWasteStats.FindAsync(userId);
-            if (stats == null)
+            var stats = await _context.FoodWasteStats
+                .Where(s => s.UserId == userId)
+                .ToListAsync();
+
+            int totalUsed = stats.Sum(s => s.ItemsUsed ?? 0); // summing for ItemsUsed table, set to 0 if null
+            int totalWasted = stats.Sum(s => s.ItemsWasted ?? 0);
+
+            var dto = new FoodWasteStatsDTO
             {
-                stats = new FoodWasteStat { UserId = userId, ItemsUsed = 0, ItemsWasted = 0 };
-                _context.FoodWasteStats.Add(stats);
-                await _context.SaveChangesAsync();
-            }
-            var DTO = new FoodWasteStatsDTO { UserId = userId, ItemsUsed = stats.ItemsUsed, ItemsWasted = stats.ItemsWasted };
-            return Ok(DTO);
+                UserId = userId,
+                ItemsUsed = totalUsed,
+                ItemsWasted = totalWasted
+            };
+
+            return Ok(dto); // DTO returned to frontend with totals present
         }
 
         // GET: api/FoodWasteStats/5

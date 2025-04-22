@@ -15,7 +15,7 @@ export class FoodstatsService {
 
   getStats(): Observable<Foodstats> {
     return this.http.get<Foodstats>(`${this.apiUrl}`);
-  }
+  }  
 
   addItemsUsed() {
     return this.http.post(`${this.apiUrl}/ItemsUsed`, {});
