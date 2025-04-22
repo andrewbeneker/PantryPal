@@ -40,7 +40,7 @@ namespace PantryPalAPI.Controllers
             Console.WriteLine(result);
             Console.WriteLine("Raw string length: " + result.Length);
             Console.WriteLine("First 500 characters: " + result.Substring(0, 500));
-            var parsedResult = JsonConvert.DeserializeObject<List<SpoonacularRecipeDto>>(result);
+            var parsedResult = JsonConvert.DeserializeObject<List<SpoonacularRecipeDto>>(result); // JSON string (result) --> list of DTO objects
             Console.WriteLine("ParsedResult.Count: " + parsedResult?.Count);
             return Ok(parsedResult);
         }

@@ -21,7 +21,7 @@ namespace PantryPalAPI.Services
                 return "[]"; // Return empty array if no ingredients provided
             }
 
-            string encodedIngredients = Uri.EscapeDataString(ingredients);
+            string encodedIngredients = Uri.EscapeDataString(ingredients); // special characters replaced with escape sequences for JSON format
             string url = $"https://api.spoonacular.com/recipes/findByIngredients?ingredients={encodedIngredients}&number=10&apiKey={_spoonacularSettings.ApiKey}";
 
 

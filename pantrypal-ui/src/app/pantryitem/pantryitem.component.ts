@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { Pantryitem } from '../models/pantryitem';
 import * as bootstrap from 'bootstrap';
 import { FormsModule } from '@angular/forms';
+import { FoodstatsService } from '../services/foodstats.service';
+import { Foodstats } from '../models/foodstats';
+
 @Component({
   selector: 'app-pantryitem',
   imports: [CommonModule, FormsModule],
@@ -36,11 +39,48 @@ export class PantryitemComponent implements OnInit {
     };
   editingItem: boolean = false;
   selectedItemIds: number[] = [];
+  stats: Foodstats = { itemsUsed: 0, itemsWasted: 0 }
+  showDeleteModal: boolean = false;
+  itemToDeleteId: number | null = null;
 
-  constructor(private pantryService: PantryitemService) { }
+  constructor(private pantryService: PantryitemService, private foodStatsService: FoodstatsService ) { }
 
   ngOnInit(): void {
     this.loadItems();
+  }
+
+  openDeleteModal(itemId: number): void {
+    this.itemToDeleteId = itemId;
+    this.showDeleteModal = true;
+  }
+  hideDeleteModal(): void {
+    this.itemToDeleteId = null;
+    this.showDeleteModal = false;
+  }
+  addItemUsed(): void {
+    this.foodStatsService.addItemsUsed().subscribe((data: any) => {
+      this.stats = data
+    }) 
+    this.deleteItem(this.itemToDeleteId!)
+    this.showToast('Pantry item deleted!', 'danger');
+    this.hideDeleteModal()
+    this.loadItems()
+  }
+ 
+  addItemWasted(): void {
+    this.foodStatsService.addItemsWasted().subscribe((data: any) => {
+      this.stats = data
+    }) 
+    this.deleteItem(this.itemToDeleteId!)
+    this.showToast('Pantry item deleted!', 'danger');
+    this.hideDeleteModal()
+    this.loadItems()
+  }
+
+  deleteItem(itemId: number): void {
+      this.pantryService.deletePantryItem(itemId).subscribe(() => {
+        this.pantryItems = this.pantryItems.filter(item => item.itemId !== itemId);
+      });
   }
 
   loadItems(): void {
@@ -157,16 +197,6 @@ export class PantryitemComponent implements OnInit {
         this.hideModal();
         this.loadItems();
         this.showToast('Pantry item added!');
-      });
-    }
-  }
-
-  deleteItem(itemId: number): void {
-    if (confirm('Are you sure you want to delete this item?')) {
-      this.pantryService.deletePantryItem(itemId).subscribe(() => {
-        this.pantryItems = this.pantryItems.filter(item => item.itemId !== itemId);
-        this.showToast('Pantry item deleted!', 'danger');
-        this.loadItems();
       });
     }
   }

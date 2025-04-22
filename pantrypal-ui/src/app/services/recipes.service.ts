@@ -13,8 +13,8 @@ export class RecipesService {
   constructor(private http: HttpClient) { }
 
   searchRecipes(query: string, limit: number = 5): Observable<any> {
-    const encodedQuery = encodeURIComponent(query);
-    const url = `${this.apiUrl}/search?query=${encodedQuery}&limit=${limit}`;
+    const encodedQuery = encodeURIComponent(query); // encodes query string
+    const url = `${this.apiUrl}/search?query=${encodedQuery}&limit=${limit}`; // builds URL with inserted encoded query
     return this.http.get(url);
   }
 

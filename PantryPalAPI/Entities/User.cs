@@ -15,5 +15,7 @@ public partial class User
 
     public virtual ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
 
+    public virtual ICollection<FoodWasteStat> FoodWasteStats { get; set; } = new List<FoodWasteStat>();
+
     public virtual ICollection<PantryItem> PantryItems { get; set; } = new List<PantryItem>();
 }

@@ -25,3 +25,12 @@ CREATE TABLE Favorites (
 	RecipeImage NVARCHAR(MAX),
 	FOREIGN KEY (UserId) REFERENCES Users(UserId)
 );
+
+CREATE TABLE FoodWasteStats (
+	Id INT IDENTITY(1,1) PRIMARY KEY,
+	ItemsWasted INT DEFAULT 0,
+	ItemsUsed INT DEFAULT 0,
+	UserId INT NOT NULL,
+	FOREIGN KEY (UserId) REFERENCES Users(UserId)
+);
+
