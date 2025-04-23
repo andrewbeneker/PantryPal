@@ -30,9 +30,9 @@ PantryPal is a digital pantry tracker designed to help you keep track of what’
 *Reduce waste with recipes designed to prioritize what's expiring soon in your pantry.*
 
 ![Dashboard](https://github.com/user-attachments/assets/12f204b3-45a1-46f4-aaa9-a7e17e7acb30)
-*Your dashboard is the heart of PantryPal. See your pantry’s total count, get timely alerts for expiring items, and monitor your food waste stats with a progress bar showing items used, wasted, and your overall progress.*
+*See your pantry’s total count, get timely alerts for expiring items, and monitor your food waste stats with a progress bar showing items used, wasted, and your overall progress.*
 
 ## Meet the Team 👩‍💻
-Andy Beneker
-Daniel Nebergall
-Rebeccah Barlas
+[Andy Beneker](https://github.com/andrewbeneker)  
+[Daniel Nebergall](https://github.com/Dannynebs)  
+[Rebeccah Barlas](https://github.com/rebeccah-barlas)
