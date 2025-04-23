@@ -4,19 +4,19 @@ PantryPal is a digital pantry tracker designed to help you keep track of what’
 
 ## Key Features ✨
 
-**Pantry management:** Add, edit, or remove items from your pantry with ease
-**Expiration tracking:** Stay ahead of the game with alerts for items nearing their expiration date in your user dashboard
-**Smart search:** Quickly find specific items in your pantry
-**Recipe finder:** Discover meals based on the ingredients you already have
-**Recipe recommendations:** View recommended recipes that prioritize soon-to-expire ingredients
-**Track your impact:** View your total items used, items wasted, and your personal food waste percentages with a visual progress bar
+**Pantry management:** Add, edit, or remove items from your pantry with ease<br>
+**Expiration tracking:** Stay ahead of the game with alerts for items nearing their expiration date in your user dashboard<br>
+**Smart search:** Quickly find specific items in your pantry<br>
+**Recipe finder:** Discover meals based on the ingredients you already have<br>
+**Recipe recommendations:** View recommended recipes that prioritize soon-to-expire ingredients<br>
+**Track your impact:** View your total items used, items wasted, and your personal food waste percentages with a visual progress bar<br>
 
 ## Tech Stack 🛠️
 
-**Frontend:** Angular
-**Backend:** C# .NET Web API
-**Database:** SQL Server with Entity Framework Core
-**External APIs used:** Edamam, Spoonacular
+**Frontend:** Angular<br>
+**Backend:** C# .NET Web API<br>
+**Database:** SQL Server with Entity Framework Core<br>
+**External APIs used:** Edamam, Spoonacular<br>
 
 ## Screenshots 📸
 
