@@ -1,4 +1,4 @@
-# PantryPal🥫
+# [PantryPal🥫](https://pantrypal-ui-ajhgbqewhmcxb5ch.centralus-01.azurewebsites.net/login)
 
 PantryPal is a digital pantry tracker designed to help you keep track of what’s in your pantry, cut down on food waste, and whip up tasty meals with what you already have at home. Whether you’re meal planning, budgeting, or just tired of throwing away forgotten groceries, PantryPal has your back.
 
