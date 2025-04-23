@@ -20,17 +20,17 @@ PantryPal is a digital pantry tracker designed to help you keep track of what’
 
 ## Screenshots 📸
 
-![Pantry Items](https://github.com/user-attachments/assets/0a510858-1c85-4422-a5cb-2d8772d5ba9f)
+<img src="https://github.com/user-attachments/assets/0a510858-1c85-4422-a5cb-2d8772d5ba9f" width="500" />
 *Your pantry at a glance — track expiration dates, manage quantities, and categorize items as "used" or "wasted" when removing them.*
 
-![recipe search](https://github.com/user-attachments/assets/33f44d8a-1182-417b-83f5-c3bb7c5b5d5f)
+<img src="https://github.com/user-attachments/assets/33f44d8a-1182-417b-83f5-c3bb7c5b5d5f" width="500" />
 *Enter ingredients to discover meals tailored to your kitchen. Love what you cooked? Save your favorites for next time!*
 
-![recommended recipes](https://github.com/user-attachments/assets/3bce7ff9-d755-41d2-9bd4-8d3890963215)
+<img src="https://github.com/user-attachments/assets/3bce7ff9-d755-41d2-9bd4-8d3890963215" width="500" />
 *Reduce waste with recipes designed to prioritize what's expiring soon in your pantry.*
 
-![Dashboard](https://github.com/user-attachments/assets/12f204b3-45a1-46f4-aaa9-a7e17e7acb30)
-*See your pantry’s total count, get timely alerts for expiring items, and monitor your food waste stats with a progress bar showing items used, wasted, and your overall progress.*
+<img src="https://github.com/user-attachments/assets/12f204b3-45a1-46f4-aaa9-a7e17e7acb30" width="500" />
+*Track your pantry’s total items, receive alerts for expiring ingredients, and monitor your food waste stats and progress.*
 
 ## Meet the Team 👩‍💻
 [Andy Beneker](https://github.com/andrewbeneker)  
